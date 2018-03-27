@@ -1,0 +1,27 @@
+{
+  "name": "rpg-battle-sequence",
+  "version": "1.0.0",
+  "description": "2D RPG battle sequence with classic and modern style and function",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@git.generalassemb.ly:vdiaz1x/RPG-Battle-Sequence.git"
+  },
+  "keywords": [
+    "game",
+    "wdi",
+    "project 1"
+  ],
+  "author": "Vinicio Diaz",
+  "license": "ISC",
+  "dependencies": {
+  },
+  "devDependencies": {
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.9.0"
+  }
+}
