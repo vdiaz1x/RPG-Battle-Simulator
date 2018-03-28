@@ -9,7 +9,7 @@ A battle sequence in the style of old school RPGs (Final Fantasy/turn-based) wit
 |---|---|--|
 |Day 1: Tue| Wireframes and Priority Matrix | Yes |
 |Day 2: Wed| Project Approval | Yes |
-| | Pseudocode | |
+| | Pseudocode | Yes |
 | | Basic Structure (Skeleton)| |
 |Day 3: Thur| Basic Structure/Style (Visual Design)| |
 | | Basic Functionality (Clicks)| |

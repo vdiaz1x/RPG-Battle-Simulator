@@ -69,5 +69,81 @@
 */
 
 $(() => {
-	alert('hello');
+// beginning
+
+/*
+|--------------------------------------------------------------------------
+| Useful/Test Functions
+|--------------------------------------------------------------------------
+*/
+
+function l(log){
+	console.log(log);
+}
+
+/*
+|--------------------------------------------------------------------------
+| Initialize Characters
+|--------------------------------------------------------------------------
+*/
+
+	class Ally {
+		constructor(name, element, atk1, atk1DMG, atk2, atk2DMG){
+			this.name = name;
+			this.HP = 999;
+			this.MP = 99;
+			this.element = element;
+			this.atk1 = atk1;
+			this.atk1DMG = atk1DMG;
+			this.atk2 = atk2;
+			this.atk2DMG = atk2DMG;
+		}
+		//methods 
+	}
+
+	let fire = new Ally('blargh', 'fire', 'one', 100, 'two', 200);
+	let water = new Ally('fish', 'water', 'three', 100, 'four', 200);
+
+l(fire);
+l(water);
+
+	class Boss {
+		constructor(name, element){
+			this.name = name;
+			this.HP = 9999;
+			this.MP = 99;
+			this.element = element;
+		}
+	}
+
+	let abraxes = new Boss("Abraxes", "darkness");
+
+l(abraxes);
+
+	function progress(){
+		let p = $("#status-ally1 div .progress");
+		let width = 100;
+		let percent = setInterval(frame, 10);
+		function frame(){
+			if(width < 0){
+				clearInterval(percent);
+			}else{
+				width--;
+				p.css("width", `${width}%`);
+			}
+		}
+	}
+
+	progress();
+
+// end
 });
+
+/*
+|--------------------------------------------------------------------------
+| Time Log
+|--------------------------------------------------------------------------
+*/
+
+// pseudo code - 1hr
+// basic skeleton framing - 2 hr

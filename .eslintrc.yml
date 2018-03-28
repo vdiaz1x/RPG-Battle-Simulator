@@ -1,1 +1,4 @@
 extends: airbnb-base
+env:
+  jquery: true
+

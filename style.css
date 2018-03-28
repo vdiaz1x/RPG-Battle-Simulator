@@ -1,8 +1,129 @@
+/*
+|--------------------------------------------------------------------------
+| Basic Settings
+|--------------------------------------------------------------------------
+*/
+
 *{
 	margin:0;
 	padding:0;
+	/*border: 1px solid black;*/
 }
 
-body{
+/*body{
 	background-color: black;
+}*/
+
+/*
+|--------------------------------------------------------------------------
+| Battle Main
+|--------------------------------------------------------------------------
+*/
+
+#battle{
+	/**/
 }
+
+#meters{
+	height:10vh;
+	background-color: red;
+	display: flex;
+	justify-content: space-between;
+}
+
+#battlefield{
+	height:70vh;
+	background:url(img/space.jpg);
+	background-size: 100% 100%;
+	display: flex;
+	justify-content: flex-start;
+}
+
+#status{
+	height:20vh;
+	background-color: blue;
+	display:flex;
+	justify-content: space-between;
+}
+
+#enemy-meter{
+	width:60%;
+	background: gray;
+}
+
+#turn-meter{
+	width:30%;
+	background:orange;
+}
+
+#enemy, #allies{
+	width:50%;
+	height:100%;
+	border: 2px solid yellow;
+	display:flex;
+	justify-content: center;
+	flex-wrap: wrap;
+	align-content: center;
+}
+
+#enemy-avatar, .ally-avatar{
+	border:1px solid white;
+}
+
+#enemy-avatar{
+	width:90%;
+	/*sample*/
+	background:url("https://vignette.wikia.nocookie.net/vsbattles/images/d/dd/Demon-ffvi-ios.png/revision/latest?cb=20160816201328");
+	background-size:100% 100%;
+}
+
+.ally-avatar{
+	width:35%;
+	height:35%;
+}
+
+.ball{
+	width:60%;
+	height:100%;
+	/*border-radius:50%;*/
+	border:2px solid white;
+	/*sample*/
+	background:url("https://cdn.shopify.com/s/files/1/0862/4240/products/1_fff69c51-5a4d-409e-b644-60268ee1570f.gif?v=1441092369");
+	background-size: 100% 100%;
+}
+
+.status-allies{
+	width:24%;
+	border: 2px solid purple;
+}
+
+.HP-meter-enemy, .MP-meter-enemy{
+	height:50%;
+}
+
+.HP-meter-enemy{
+	width:100%;
+}
+
+.MP-meter-enemy{
+	width:60%;
+}
+
+.HP-meter-enemy, .MP-meter-enemy, .HP-meter-ally, .MP-meter-ally, .status-marker{
+	border:1px solid red;
+}
+
+.HP-meter-ally, .MP-meter-ally{
+	height:25%;
+}
+
+.progress{
+	background-color:green;
+	width:100%;
+	height: 100%;
+}
+
+.status-marker{
+	height:50%;
+}
+

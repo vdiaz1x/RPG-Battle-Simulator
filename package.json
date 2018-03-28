@@ -17,11 +17,11 @@
   ],
   "author": "Vinicio Diaz",
   "license": "ISC",
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
     "eslint": "^4.19.1",
     "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-config-jquery": "^1.0.1",
     "eslint-plugin-import": "^2.9.0"
   }
 }
