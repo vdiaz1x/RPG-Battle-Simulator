@@ -7,12 +7,19 @@ A battle sequence in the style of old school RPGs (Final Fantasy/turn-based) wit
 
 |  Day | Deliverable | Complete? |
 |---|---|--|
-|Day 1: Tue| Wireframes and Priority Matrix| |
-|Day 2: Wed| Project Approval /  Pseudocode / actual code| |
-|Day 3: Thur| Basic Clickable Model | |
-|Day 4: Fri| Working Prototype | |
-|Day 5: Sat| Final Working Project | |
-|Day 6: Sun| Bugs / Stylying / PostMVP | |
+|Day 1: Tue| Wireframes and Priority Matrix | Yes |
+|Day 2: Wed| Project Approval | Yes |
+| | Pseudocode | |
+| | Basic Structure (Skeleton)| |
+|Day 3: Thur| Basic Structure/Style (Visual Design)| |
+| | Basic Functionality (Clicks)| |
+| | Landing Page | |
+|Day 4: Fri| Battle Logic | |
+| | Win/Lose Logic | |
+|Day 5: Sat| Reset Logic | |
+|Day 6: Sun| Bugs | |
+| | Stylying | |
+| | PostMVP | |
 |Day 7: Mon| Project Presentations | |
 
 
@@ -22,27 +29,31 @@ This project is based off of a typical RPG boss battle. The idea is to model it 
 
 ## Wireframes
 
-Original Brainstorm
+### Original Brainstorm
+
 [Part 1](https://photos.app.goo.gl/8XM3lAQa0e9YkJeC2)
+
 [Part 2](https://photos.app.goo.gl/pTyf4iPdxnrStcbA3)
+
 [Part 3](https://photos.app.goo.gl/FULzuRwy5mtVyA0o2)
 
-Wireframes
+###Wireframes
 
 
 ## Priority Matrix
 
 ### High Priority
--Game Logic
--Win Condition
+- Game Logic (Battle Calculation and Turn Loop)
+- Win Condition
 
 ### Medium Priority
--Game Styling
--Landing Page
--Restart
+- Basic Game Styling
+- Landing Page
+- Restart
 
 ## Low Priority
--Add PostMVP Features
+- Advanced Game Styling
+- Add PostMVP Features
 
 ## Game Components
 
@@ -55,36 +66,54 @@ When the battle is started, you will see the boss you selected earlier and your 
 ### Playing The Game
 The player has to select an attack from each ally. After attack selection, the allies will attack the boss, one at a time. If the boss is not dead, the boss will attack. If your party is not dead after the boss attack, then you will return to select attacks to hit the boss with.
 
+#### Battle Start
+- Display Enemy and Allies
+- Select Ally Attack, One at a Time
+- Confirm Ally Attack Selection
+
+#### Battle Sequence
+- Allies Attack, One at a Time
+- Boss HP Goes Down With Every Attack
+- If Boss HP > 0, Boss Attacks Allies. Else, Boss dies (Win Con)
+- If Ally HP < 0, Ally Cannot Attack. If All Allies' HP < 0, No Allies Can Attack (Lose Con).
+- If Both Boss and Allies' HP > 0, Turn Over And Next Attack Phase Begins (Battle Start)
+
+#### Post-Battle
+- Battle Message Depending on Win or Lose Con
+- After Battle Message, Option to Go Back to Main Character Selection
+
 ### Winning The Game
 Once the boss' HP reaches zero, you win the game. If the HP of all your allies reaches zero, you lose.
 
 ### Game Reset
 After a win or loss, you will have the option to go back and select a new enemy to fight.
 
-## MVP 
-Deliverables
+## MVP
 
-Landing Page with Message (Get Name)
-Select Player Avatar and Allies
-Battle Screen with Boss and Allies as well as HP/MP meters
-Battle Damage Calculation/Display
-Basic Attack Animation/Notification
-Win Con Based on Boss HP <= 0
-Lose Con Based on Allies' HP <= 0
-Return to Boss Select Screen
+### Deliverables
+
+- Landing Page with Message (Get Name)
+- Select Player Avatar and Allies
+- Battle Screen with Boss and Allies as well as HP/MP meters
+- Battle Damage Calculation/Display
+- Basic Attack Animation/Notification
+- Win Con Based on Boss HP <= 0
+- Lose Con Based on Allies' HP <= 0
+- Return to Boss Select Screen
 
 ## POST MVP
-Planned Expansion
 
-Adding Attacks with Buff/Debuff
-Attack Damage Randomizer
-Detailed Display of Status
-Tooltips
-Different Enemies
-Expand Ally Select
-Mobile View
-Dialogue in Battle
-Change Boss Behavior Based on HP
+### Planned Expansion
+
+- Adding Attacks with Buff/Debuff
+- Attack Damage Randomizer
+- Detailed Display of Status
+- Tooltips
+- Different Enemies
+- Expand Ally Select
+- Mobile View
+- Dialogue in Battle
+- Change Boss Behavior Based on HP
 
 ## Functional Components
 
