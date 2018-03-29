@@ -118,11 +118,30 @@ function l(log){
 	class Ally extends Being {
 		constructor(name, element, atk1, atk1DMG, atk2, atk2DMG, img, id) {
 			super(name, element, atk1, atk1DMG, atk2, atk2DMG, img, id);
+			this.meterHP = '.HP-meter-ally';
+			this.meterMP = '.MP-meter-ally';
+			this.progress = '.progress';
+			this.counter = '.counter';
+			this.nameSlot = '.name-ally';
 		}
 		// methods
+		meterFindHP(){
+			return this.id +' '+ this.meterHP +' '+ this.progress;
+		}
+		meterFindMP(){
+			return this.id +' '+ this.meterMP +' '+ this.progress;
+		}
+		counterFindHP(){
+			return this.id +' '+ this.meterHP+' '+ this.counter;
+		}
+		counterFindMP(){
+			return this.id +' '+ this.meterMP+' '+ this.counter;
+		}
 	}
 
 	let fire = new Ally('blargh', 'fire', 'one', 100, 'two', 200, allyImg1, '#status-ally1');
+	l(fire.meterFindHP());
+	l(fire.meterFindMP());
 	let water = new Ally('fish', 'water', 'three', 100, 'four', 200, allyImg1, '#status-ally2');
 
 l(fire);
@@ -164,24 +183,29 @@ imgGen(fire.img, water.img, abraxes.img);
 // generating HP/MP bars for allies/bosses
 function statusGen(ally) {
 	// gets HP/MP values from ally
-	let HP = ally.HP, MP = ally.MP;
-	// get relevant HP/MP meters
-	let subHP = ".HP-meter-ally";
-	let subMP = ".MP-meter-ally"
-	let barHP = `${ally.id} ${subHP} .progress`;
-	let barMP = `${ally.id} ${subMP} .progress`;
-	let countHP = `${ally.id} ${subHP} .counter`;
-	let countMP = `${ally.id} ${subMP} .counter`;
+
 // puts HP/MP count into counter boxes
-	$(countHP).text(ally.HP);
-	$(countMP).text(ally.MP);
+	$(ally.counterFindHP()).text(ally.totalHP);
+	$(ally.counterFindMP()).text(ally.totalMP);
+
+// puts name into name slot
+	$(ally.nameSlot).text(`${ally.name}`);
 }
 
 statusGen(fire);
 
-// function turn(){
+const players = [];
 
-// }
+function turn(players){
+	// order of players
+
+	
+
+	fire.currentHP = 599;
+	progress(fire);
+}
+
+turn();
 
 //damage calc
 function damage(hitPoints, attack){
@@ -190,7 +214,7 @@ function damage(hitPoints, attack){
 
 	// progress meter
 	// reference - https://www.w3schools.com/howto/howto_js_progressbar.asp
-	function progress(meter, being){
+	function progress(being){
 		// width of the total size of the div (80%)
 		let width = 80;
 		// the decrementation of the progress bar
@@ -208,14 +232,14 @@ function damage(hitPoints, attack){
 				// ratio for decrementation
 				width-=(being.currentHP/being.totalHP);
 				// using decrement ratio to change the actual size of the progress bar div
-				meter.css('width', `${width}%`);
+				$(fire.meterFindHP()).css('width', `${width}%`);
 			}
 		}
 	}
 
 // test
-let p = $('#status-ally1 div .progress');
-	progress(p, fire);
+// let p = $('#status-ally1 div .progress');
+// progress(p, fire);
 
 // end
 });
@@ -229,4 +253,4 @@ let p = $('#status-ally1 div .progress');
 // pseudo code - 1hr
 // basic skeleton framing - 2 hr
 // adding jquery to eslint - 1 hr
-// adding more jquery functionality -2.5 hr
+// adding more jquery functionality -3.5 hr

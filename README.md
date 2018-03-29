@@ -10,7 +10,7 @@ A battle sequence in the style of old school RPGs (Final Fantasy/turn-based) wit
 |Day 1: Tue| Wireframes and Priority Matrix | Yes |
 |Day 2: Wed| Project Approval | Yes |
 | | Pseudocode | Yes |
-| | Basic Structure (Skeleton)| |
+| | Basic Structure (Skeleton)| Yes |
 |Day 3: Thur| Basic Structure/Style (Visual Design)| |
 | | Basic Functionality (Clicks)| |
 | | Landing Page | |
@@ -37,7 +37,7 @@ This project is based off of a typical RPG boss battle. The idea is to model it 
 
 [Part 3](https://photos.app.goo.gl/FULzuRwy5mtVyA0o2)
 
-###Wireframes
+### Wireframes
 
 
 ## Priority Matrix
@@ -54,6 +54,32 @@ This project is based off of a typical RPG boss battle. The idea is to model it 
 ## Low Priority
 - Advanced Game Styling
 - Add PostMVP Features
+
+## User Stories
+
+### Landing Page
+
+- As a player, I want to be able to see a beginning and enter a choice whether I want to play
+
+### Game Initialization
+
+- As a player, I expect to have a character select screen to select who I am playing as, as well as choose my enemy
+
+### Playing The Game
+
+- As a player, I want to see all the visuals needed to play (status/life totals for allies and for enemies)
+- As a player, I expect that selecting my moves for my turn to be simple
+- As a player, I expect to see indication of my attacks working
+- As a player, I want to see good visual effects
+
+### Winning The Game
+
+- As a player, I expect to see a confirmation of winning
+- As a player, I expect to see a confirmation of losing
+
+### Game Reset
+
+- As a player, I want to see a way to return to the character select screen and fight again
 
 ## Game Components
 
@@ -123,8 +149,34 @@ Time frames are also key in the development cycle.  You have limited time to cod
 
 | Component | Priority | Estimated Time | Time Invetsted | Actual Time |
 | --- | :---: |  :---: | :---: | :---: |
-| Component 1 | H | 10hrs| 12hrs | 12hrs |
-| Total |  | 10hrs| 12hrs | 12hrs |
+| Game Logic | H | 20hrs| 00hrs | 00hrs |
+| (Progress) | H | 3hrs| 00hrs | 00hrs |
+| (Turn Order) | H | 3hrs| 00hrs | 00hrs |
+| (Classes) | H | 3hrs| 00hrs | 00hrs |
+| (On-screen) | H | 4hrs| 00hrs | 00hrs |
+| (Damage) | H | 4hrs| 00hrs | 00hrs |
+| (Misc) | H | 3hrs| 00hrs | 00hrs |
+| Win Condition | H | 4hrs| 00hrs | 00hrs |
+| Basic Game Styling | M | 6hrs| 00hrs | 00hrs |
+| Landing Page | M | 00hrs| 2hrs | 00hrs |
+| Restart | M | 00hrs| 00hrs | 2hrs |
+| Total |  | 34hrs| 00hrs | 00hrs |
+| Advanced Game Styling | L | 5hrs| 00hrs | 00hrs |
+| PostMVP | L | 10hrs| 00hrs | 00hrs |
+| Super Total |  | 50hrs| 00hrs | 00hrs |
+
+### High Priority
+- Game Logic (Battle Calculation and Turn Loop)
+- Win Condition
+
+### Medium Priority
+- Basic Game Styling
+- Landing Page
+- Restart
+
+## Low Priority
+- Advanced Game Styling
+- Add PostMVP Features
 
 ## Helper Functions
 Helper functions should be generic enought that they can be reused in other applications. Use this section to document all helper functions that fall into this category.

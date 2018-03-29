@@ -41,7 +41,7 @@
 
 #status{
 	height:20vh;
-	background-color: blue;
+	background-color: black;
 	display:flex;
 	justify-content: space-between;
 }
@@ -94,7 +94,13 @@
 
 .status-allies{
 	width:24%;
-	border: 2px solid purple;
+	background-color:#222;
+	color:white;
+	/*border: 2px solid purple;*/
+}
+
+.name-ally{
+	height:20%;
 }
 
 .HP-meter-enemy, .MP-meter-enemy{
@@ -110,11 +116,11 @@
 }
 
 .HP-meter-enemy, .MP-meter-enemy, .HP-meter-ally, .MP-meter-ally, .status-marker{
-	border:1px solid red;
+	/*border:1px solid red;*/
 }
 
 .HP-meter-ally, .MP-meter-ally{
-	height:25%;
+	height:15%;
 	display: flex;
 	justify-content: flex-start;
 }
@@ -123,13 +129,21 @@
 	width: 20%;
 	height: 100%;
 	background:black;
-	color:white;
+	/*color:white;*/
 }
 
 .progress{
-	background-color:green;
+	/*background-color:green;*/
 	width:80%;
 	height: 100%;
+}
+
+.HP-meter-ally .progress{
+	background-color:green;
+}
+
+.MP-meter-ally .progress{
+	background-color:purple;
 }
 
 .status-marker{
