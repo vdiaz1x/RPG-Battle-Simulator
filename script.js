@@ -87,54 +87,135 @@ function l(log){
 |--------------------------------------------------------------------------
 */
 
-	class Ally {
-		constructor(name, element, atk1, atk1DMG, atk2, atk2DMG){
+//image urls saved in variable for easy to read class
+	const allyImg1 = 'https://cdn.shopify.com/s/files/1/0862/4240/products/1_fff69c51-5a4d-409e-b644-60268ee1570f.gif?v=1441092369';
+
+	const bossImg1 = 'https://vignette.wikia.nocookie.net/vsbattles/images/d/dd/Demon-ffvi-ios.png/revision/latest?cb=20160816201328';
+
+	// one class for all ally/bosses
+	// with relevant stats
+	class Being {
+		constructor(name, element, atk1, atk1DMG, atk2, atk2DMG, img, id) {
 			this.name = name;
-			this.HP = 999;
-			this.MP = 99;
+			this.totalHP = 999;
+			this.currentHP = this.totalHP;
+			this.totalMP = 99;
+			this.currentMP = this.totalMP;
 			this.element = element;
-			this.atk1 = atk1;
-			this.atk1DMG = atk1DMG;
-			this.atk2 = atk2;
-			this.atk2DMG = atk2DMG;
+			this.attacks = {
+				atk1: atk1,
+				atk1DMG: atk1DMG,
+				atk2: atk2,
+				atk2DMG: atk2DMG
+			}
+			this.img = img;
+			this.id = id;
 		}
-		//methods 
+		// methods
 	}
 
-	let fire = new Ally('blargh', 'fire', 'one', 100, 'two', 200);
-	let water = new Ally('fish', 'water', 'three', 100, 'four', 200);
+	// extend being into ally
+	class Ally extends Being {
+		constructor(name, element, atk1, atk1DMG, atk2, atk2DMG, img, id) {
+			super(name, element, atk1, atk1DMG, atk2, atk2DMG, img, id);
+		}
+		// methods
+	}
+
+	let fire = new Ally('blargh', 'fire', 'one', 100, 'two', 200, allyImg1, '#status-ally1');
+	let water = new Ally('fish', 'water', 'three', 100, 'four', 200, allyImg1, '#status-ally2');
 
 l(fire);
 l(water);
 
-	class Boss {
-		constructor(name, element){
-			this.name = name;
-			this.HP = 9999;
-			this.MP = 99;
-			this.element = element;
+// extends being into boss
+	class Boss extends Being {
+		constructor(name, element, atk1, atk1DMG, atk2, atk2DMG, img, id) {
+			super(name, element, atk1, atk1DMG, atk2, atk2DMG, img, id);
 		}
+		// methods
 	}
 
-	let abraxes = new Boss("Abraxes", "darkness");
+	let abraxes = new Boss('Abraxes', 'darkness', 'Ultima', 300, 'Illumina', 400, bossImg1, '#enemy-meter');
 
 l(abraxes);
 
-	function progress(){
-		let p = $("#status-ally1 div .progress");
-		let width = 100;
-		let percent = setInterval(frame, 10);
+/*
+|--------------------------------------------------------------------------
+| Battle Functions
+|--------------------------------------------------------------------------
+*/
+
+const allySpace1 = $('#ally-avatar1 .ball');
+const allySpace2 = $('#ally-avatar2 .ball');
+
+const bossSpace = $('#enemy-avatar');
+
+// generating images on battle screen
+function imgGen(ally1, ally2, boss) {
+	allySpace1.css('background', `url(${ally1}`);
+	allySpace2.css('background', `url(${ally2}`);
+
+	bossSpace.css('background', `url(${boss}`);
+}
+
+imgGen(fire.img, water.img, abraxes.img);
+
+// generating HP/MP bars for allies/bosses
+function statusGen(ally) {
+	// gets HP/MP values from ally
+	let HP = ally.HP, MP = ally.MP;
+	// get relevant HP/MP meters
+	let subHP = ".HP-meter-ally";
+	let subMP = ".MP-meter-ally"
+	let barHP = `${ally.id} ${subHP} .progress`;
+	let barMP = `${ally.id} ${subMP} .progress`;
+	let countHP = `${ally.id} ${subHP} .counter`;
+	let countMP = `${ally.id} ${subMP} .counter`;
+// puts HP/MP count into counter boxes
+	$(countHP).text(ally.HP);
+	$(countMP).text(ally.MP);
+}
+
+statusGen(fire);
+
+// function turn(){
+
+// }
+
+//damage calc
+function damage(hitPoints, attack){
+	return hitPoints - attack;
+}
+
+	// progress meter
+	// reference - https://www.w3schools.com/howto/howto_js_progressbar.asp
+	function progress(meter, being){
+		// width of the total size of the div (80%)
+		let width = 80;
+		// the decrementation of the progress bar
+		let percent = setInterval(frame, 50);
+
+		//function for calculation of the decrement step
 		function frame(){
-			if(width < 0){
+			// l((being.currentHP/being.totalHP)*80);
+			// if width is less than ratio of current HP (to be reflected on the bar), stop
+			if(width <= (being.currentHP/being.totalHP)*80) {
+				//stops any more decrements
 				clearInterval(percent);
+				//  otherwise, decrement the meter
 			}else{
-				width--;
-				p.css("width", `${width}%`);
+				// ratio for decrementation
+				width-=(being.currentHP/being.totalHP);
+				// using decrement ratio to change the actual size of the progress bar div
+				meter.css('width', `${width}%`);
 			}
 		}
 	}
 
-	progress();
+// test
+let p = $('#status-ally1 div .progress');
+	progress(p, fire);
 
 // end
 });
@@ -147,3 +228,5 @@ l(abraxes);
 
 // pseudo code - 1hr
 // basic skeleton framing - 2 hr
+// adding jquery to eslint - 1 hr
+// adding more jquery functionality -2.5 hr

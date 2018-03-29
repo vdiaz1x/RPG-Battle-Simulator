@@ -73,7 +73,7 @@
 #enemy-avatar{
 	width:90%;
 	/*sample*/
-	background:url("https://vignette.wikia.nocookie.net/vsbattles/images/d/dd/Demon-ffvi-ios.png/revision/latest?cb=20160816201328");
+	/*background:url("https://vignette.wikia.nocookie.net/vsbattles/images/d/dd/Demon-ffvi-ios.png/revision/latest?cb=20160816201328");*/
 	background-size:100% 100%;
 }
 
@@ -86,9 +86,9 @@
 	width:60%;
 	height:100%;
 	/*border-radius:50%;*/
-	border:2px solid white;
+	/*border:2px solid white;*/
 	/*sample*/
-	background:url("https://cdn.shopify.com/s/files/1/0862/4240/products/1_fff69c51-5a4d-409e-b644-60268ee1570f.gif?v=1441092369");
+	/*background:url("https://cdn.shopify.com/s/files/1/0862/4240/products/1_fff69c51-5a4d-409e-b644-60268ee1570f.gif?v=1441092369");*/
 	background-size: 100% 100%;
 }
 
@@ -115,11 +115,20 @@
 
 .HP-meter-ally, .MP-meter-ally{
 	height:25%;
+	display: flex;
+	justify-content: flex-start;
+}
+
+.counter{
+	width: 20%;
+	height: 100%;
+	background:black;
+	color:white;
 }
 
 .progress{
 	background-color:green;
-	width:100%;
+	width:80%;
 	height: 100%;
 }
 
