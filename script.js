@@ -71,21 +71,21 @@
 $(() => {
 // beginning
 
-/*
-|--------------------------------------------------------------------------
-| Useful/Test Functions
-|--------------------------------------------------------------------------
-*/
+  /*
+  |--------------------------------------------------------------------------
+  | Useful/Test Functions
+  |--------------------------------------------------------------------------
+  */
 
   function l(log) {
     console.log(log);
   }
 
-/*
-|--------------------------------------------------------------------------
-| Initialize Characters
-|--------------------------------------------------------------------------
-*/
+  /*
+  |--------------------------------------------------------------------------
+  | Initialize Characters
+  |--------------------------------------------------------------------------
+  */
 
   // attack objects to put into classes
 
@@ -98,18 +98,32 @@ $(() => {
   }
 
   const fireATK = [
-    new Attack("Flame", 50, 25),
-    new Attack("Fireball", 200, 50),
-    new Attack("Meteor", 300, 75),
-    new Attack("Volcano", 400, 100),
-  ]
+    new Attack('Flame', 50, 25),
+    new Attack('Fireball', 200, 50),
+    new Attack('Meteor', 300, 75),
+    new Attack('Volcano', 400, 100),
+  ];
 
   const waterATK = [
-    new Attack("Wave", 50, 25),
-    new Attack("Waterball", 200, 50),
-    new Attack("Tsunami", 300, 75),
-    new Attack("Ocean", 400, 100),
-  ]
+    new Attack('Wave', 50, 25),
+    new Attack('Waterball', 200, 50),
+    new Attack('Tsunami', 300, 75),
+    new Attack('Ocean', 400, 100),
+  ];
+
+  const airATK = [
+    new Attack('Gust', 50, 25),
+    new Attack('Airball', 200, 50),
+    new Attack('Tornado', 300, 75),
+    new Attack('Hurricane', 400, 100),
+  ];
+
+  const earthATK = [
+    new Attack('Rock', 50, 25),
+    new Attack('Earthball', 200, 50),
+    new Attack('Earthquake', 300, 75),
+    new Attack('Fissure', 400, 100),
+  ];
 
   // one class for all ally/bosses
   // with relevant stats
@@ -157,10 +171,12 @@ $(() => {
     }
   }
 
-  let fire = new Ally('blargh', 'fire', fireATK, 'ally1', '#status-ally1', 'block1');
-  let water = new Ally('fish', 'water', waterATK, 'ally2', '#status-ally2', 'block2');
+  const fire = new Ally('blargh', 'fire', fireATK, 'ally1', '#status-ally1', 'block1');
+  const water = new Ally('fish', 'water', waterATK, 'ally2', '#status-ally2', 'block2');
+  const air = new Ally('birb', 'air', airATK, 'ally3', '#status-ally3', 'block3');
+  const earth = new Ally('stone', 'earth', earthATK, 'ally4', '#status-ally4', 'block4');
 
-  let allyList = [fire, water];
+  const allyList = [fire, water, air, earth];
 
   // extends being into boss
   class Boss extends Being {
@@ -178,28 +194,28 @@ $(() => {
     }
     // methods
     meterFindBossHP() {
-      return this.id + ' ' + this.meterHP + ' ' + this.progress;
+      return `${this.id} ${this.meterHP} ${this.progress}`;
     }
     meterFindBossMP() {
-      return this.id + ' ' + this.meterMP + ' ' + this.progress;
+      return `${this.id} ${this.meterMP} ${this.progress}`;
     }
     counterFindBossHP() {
-      return this.id + ' ' + this.meterHP+ ' ' + this.counter;
+      return `${this.id} ${this.meterHP} ${this.counter}`;
     }
     counterFindBossMP() {
-      return this.id + ' ' + this.meterMP+ ' ' + this.counter;
+      return `${this.id} ${this.meterMP} ${this.counter}`;
     }
   }
 
-  let abraxes = new Boss('Abraxes', 'darkness', fireATK, 'abraxes', '#enemy-meter');
+  const abraxes = new Boss('Abraxes', 'darkness', fireATK, 'abraxes', '#enemy-meter');
 
   // l(abraxes);
 
-/*
-|--------------------------------------------------------------------------
-| Battle Functions
-|--------------------------------------------------------------------------
-*/
+  /*
+  |--------------------------------------------------------------------------
+  | Battle Functions
+  |--------------------------------------------------------------------------
+  */
 
   const allySpace1 = $('#ally-avatar1 .ball');
   const allySpace2 = $('#ally-avatar2 .ball');
@@ -209,7 +225,7 @@ $(() => {
   // generating images on battle screen
   function imgGen(ally1, ally2, boss) {
     allySpace1.addClass(ally1.img);
-    allySpace2.addClass(ally2.img).addClass("size");
+    allySpace2.addClass(ally2.img).addClass('size');
     // l(boss)
 
     bossSpace.addClass(boss.img);
@@ -234,72 +250,78 @@ $(() => {
   const atkList = [];
   const attacks = [];
 
-/*
-|--------------------------------------------------------------------------
-| Attack Select
-|--------------------------------------------------------------------------
-*/
+  /*
+  |--------------------------------------------------------------------------
+  | Click Events
+  |--------------------------------------------------------------------------
+  */
+
+  //
+
+  /*
+  |--------------------------------------------------------------------------
+  | Attack Select
+  |--------------------------------------------------------------------------
+  */
 
   // how to select which character to get moves from
-  $('.atk-block').on('click', function () {
+  $('.atk-block').on('click', clickAlly);
+
+  function clickAlly() {
     $('#attack').show();
     const id = $(this).attr('id');
 
-    // l("id");
-    // l(id);
-    let currentAlly;
+    // help from jason , get url for prototype.find
+    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find
+    const currentAlly = allyList.find(ally => ally.position === id);
+    // for (ally of allyList) {
+    //   if (ally.position === id) {
+    //     currentAlly = ally;
+    //   }
+    // }
 
-    for (ally of allyList){
-      if( ally.position === id){
-        currentAlly = ally;
-      }
-    }
-
-    if(atkList.length < 4 && atkList.indexOf(currentAlly.attack) === -1) {
+    if (atkList.length < 4 && atkList.indexOf(currentAlly.attack) === -1) {
       atkList.push(currentAlly.attack);
     }
 
-    // l(atkList)
-
-    $(".atk-choice").each((i, el) => {
+    // help from jason
+    // http://api.jquery.com/jquery.each/
+    $('.atk-choice').each((i, el) => {
       $(el).text(currentAlly.attack[i].name);
-    })
-
-    // $('this').off('click');
-
-    $('.atk-choice').on('click', function () {
-
-      $('#attack').hide();
-
-      const atkId = `#${$(this).attr('id')}`;
-
-      let currentATK;
-
-      // l($(atkId).text());
-      // l(currentAlly.attack);
-      for (atkArr of atkList){
-        for (atk of atkArr) {
-          if( atk.name === $(atkId).text()){
-            currentATK = atk;
-            // console.log($(atkId).text());
-            // console.log(atk);
-            // console.log(attacks);
-          } 
-        }
-      }
-
-      if(attacks.length < 4 && attacks.indexOf(currentATK) === -1) {
-        attacks.push(currentATK);
-      }
-      l(attacks);
-      
-      // $(this).off('click');
     });
 
-  });
+    $(this).off('click');
+  }
+
+  // how to select which attack to use
+  $('.atk-choice').on('click', clickAttack);
+
+  function clickAttack() {
+    $('#attack').hide();
+
+    const atkId = `#${$(this).attr('id')}`;
+
+    let currentATK;
+
+    for (atkArr of atkList) {
+      for (atk of atkArr) {
+        if (atk.name === $(atkId).text()) {
+          currentATK = atk;
+        }
+      }
+    }
+
+    if (attacks.length < 4 && attacks.indexOf(currentATK) === -1) {
+      attacks.push(currentATK);
+    }
+    l(attacks);
+
+    $(this).off('click');
+  }
+
 
   function turn(atkArr) {
-    for (let i=1;i<=atkArr.length;i++) {
+    for (let i = 1; i <= atkArr.length; i += 1) {
       move(i);
     }
   }
@@ -311,23 +333,22 @@ $(() => {
     // let playerNum = attacks.length;
 
     // for(let i = 0; i < playerNum; i++) {
-      attacks.push(fire.attack[0]);
-      // l(fire.attack[0])
+    attacks.push(fire.attack[0]);
+    // l(fire.attack[0])
 
-      damage(abraxes, attacks[0]);
-      setTimeout(function(){
-        l(abraxes.currentHP)
-        
-        // abraxes.currentHP -= 100;
-        // abraxes.currentMP -= 10;
-        // l(abraxes.currentHP);
-        // l(abraxes.currentMP)
+    damage(abraxes, attacks[0]);
+    setTimeout(() => {
+      l(abraxes.currentHP);
 
-        progress(abraxes, abraxes.widthHP, 'HP');
-      }, 1000*order)
+      // abraxes.currentHP -= 100;
+      // abraxes.currentMP -= 10;
+      // l(abraxes.currentHP);
+      // l(abraxes.currentMP)
 
-      // progress(abraxes, abraxes.widthMP, 'MP');
-      
+      progress(abraxes, abraxes.widthHP, 'HP');
+    }, 3000 * order);
+
+    // progress(abraxes, abraxes.widthMP, 'MP');
     // }
 
     // progress(fire, fire.widthHP, 'HP');
@@ -336,12 +357,13 @@ $(() => {
     // (fire.constructor.name)
   }
 
-  move(1);
+  // move(1);
 
   // damage calc
   function damage(being, atkArr) {
     // l(atkArr.dmg)
-    return being.currentHP -= atkArr.dmg;
+    being.currentHP -= atkArr.dmg;
+    return being.currentHP;
   }
 
   /*
@@ -350,13 +372,18 @@ $(() => {
   |--------------------------------------------------------------------------
   */
 
+  // have progress bar listen to change in status???
+
   // progress meter
   // reference - https://www.w3schools.com/howto/howto_js_progressbar.asp
   function progress(being, start, meter) {
     // width of the total size of the div (80%)
     let width = start;
     // console.log(width);
-    let name = being.constructor.name;
+
+    // help from jason
+    // object destructuring
+    const { name } = being.constructor;
 
     // the decrementation of the progress bar
     const percent = setInterval(frame, 50);
@@ -369,7 +396,7 @@ $(() => {
       // l(start)
       if (width <= (being[`current${meter}`] / being[`total${meter}`]) * start) {
         // console.log((being[`current${meter}`] / being[`total${meter}`]) * width)
-        //stops any more decrements
+        // stops any more decrements
         clearInterval(percent);
         //  otherwise, decrement the meter
       } else {
@@ -403,7 +430,8 @@ $(() => {
 
 // pseudo code - 1hr
 // basic skeleton framing - 3.75 hr
-// advanced styling - 
+// advanced styling - //
 // adding jquery to eslint - 1 hr
-// adding more jquery functionality -9 hr
+// adding more jquery functionality -9.5 hr
 // updating readme - .5 hr
+// jquery syntax - .5 hr
