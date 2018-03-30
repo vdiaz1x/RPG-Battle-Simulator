@@ -77,9 +77,9 @@ $(() => {
 |--------------------------------------------------------------------------
 */
 
-function l(log){
-	console.log(log);
-}
+  function l(log) {
+    console.log(log);
+  }
 
 /*
 |--------------------------------------------------------------------------
@@ -87,77 +87,113 @@ function l(log){
 |--------------------------------------------------------------------------
 */
 
-//image urls saved in variable for easy to read class
-	const allyImg1 = 'https://cdn.shopify.com/s/files/1/0862/4240/products/1_fff69c51-5a4d-409e-b644-60268ee1570f.gif?v=1441092369';
+  // attack objects to put into classes
 
-	const bossImg1 = 'https://vignette.wikia.nocookie.net/vsbattles/images/d/dd/Demon-ffvi-ios.png/revision/latest?cb=20160816201328';
+  class Attack {
+    constructor(name, dmg, cost) {
+      this.name = name;
+      this.dmg = dmg;
+      this.cost = cost;
+    }
+  }
 
-	// one class for all ally/bosses
-	// with relevant stats
-	class Being {
-		constructor(name, element, atk1, atk1DMG, atk2, atk2DMG, img, id) {
-			this.name = name;
-			this.totalHP = 999;
-			this.currentHP = this.totalHP;
-			this.totalMP = 99;
-			this.currentMP = this.totalMP;
-			this.element = element;
-			this.attacks = {
-				atk1: atk1,
-				atk1DMG: atk1DMG,
-				atk2: atk2,
-				atk2DMG: atk2DMG
-			}
-			this.img = img;
-			this.id = id;
-		}
-		// methods
-	}
+  const fireATK = [
+    new Attack("Flame", 50, 25),
+    new Attack("Fireball", 200, 50),
+    new Attack("Meteor", 300, 75),
+    new Attack("Volcano", 400, 100),
+  ]
 
-	// extend being into ally
-	class Ally extends Being {
-		constructor(name, element, atk1, atk1DMG, atk2, atk2DMG, img, id) {
-			super(name, element, atk1, atk1DMG, atk2, atk2DMG, img, id);
-			this.meterHP = '.HP-meter-ally';
-			this.meterMP = '.MP-meter-ally';
-			this.progress = '.progress';
-			this.counter = '.counter';
-			this.nameSlot = '.name-ally';
-		}
-		// methods
-		meterFindHP(){
-			return this.id +' '+ this.meterHP +' '+ this.progress;
-		}
-		meterFindMP(){
-			return this.id +' '+ this.meterMP +' '+ this.progress;
-		}
-		counterFindHP(){
-			return this.id +' '+ this.meterHP+' '+ this.counter;
-		}
-		counterFindMP(){
-			return this.id +' '+ this.meterMP+' '+ this.counter;
-		}
-	}
+  const waterATK = [
+    new Attack("Wave", 50, 25),
+    new Attack("Waterball", 200, 50),
+    new Attack("Tsunami", 300, 75),
+    new Attack("Ocean", 400, 100),
+  ]
 
-	let fire = new Ally('blargh', 'fire', 'one', 100, 'two', 200, allyImg1, '#status-ally1');
-	l(fire.meterFindHP());
-	l(fire.meterFindMP());
-	let water = new Ally('fish', 'water', 'three', 100, 'four', 200, allyImg1, '#status-ally2');
+  // one class for all ally/bosses
+  // with relevant stats
+  class Being {
+    constructor(name, element, atk, img, id) {
+      this.name = name;
+      this.totalHP = 1000;
+      this.currentHP = this.totalHP;
+      this.totalMP = 10;
+      this.currentMP = this.totalMP;
+      this.element = element;
+      this.attack = atk;
+      this.img = img;
+      this.id = id;
+    }
+    // methods
+  }
 
-l(fire);
-l(water);
+  // extend being into ally
+  class Ally extends Being {
+    constructor(name, element, atk, img, id, position) {
+      super(name, element, atk, img, id);
+      this.meterHP = '.HP-meter-ally';
+      this.meterMP = '.MP-meter-ally';
+      this.progress = '.progress';
+      this.counter = '.counter';
+      this.nameSlot = '.name-ally';
+      this.position = position;
+      this.widthHP = 80;
+      this.widthMP = 80;
+      // this.being = "Ally";
+    }
+    // methods
+    meterFindAllyHP() {
+      return `${this.id} ${this.meterHP} ${this.progress}`;
+    }
+    meterFindAllyMP() {
+      return `${this.id} ${this.meterMP} ${this.progress}`;
+    }
+    counterFindAllyHP() {
+      return `${this.id} ${this.meterHP} ${this.counter}`;
+    }
+    counterFindAllyMP() {
+      return `${this.id} ${this.meterMP} ${this.counter}`;
+    }
+  }
 
-// extends being into boss
-	class Boss extends Being {
-		constructor(name, element, atk1, atk1DMG, atk2, atk2DMG, img, id) {
-			super(name, element, atk1, atk1DMG, atk2, atk2DMG, img, id);
-		}
-		// methods
-	}
+  let fire = new Ally('blargh', 'fire', fireATK, 'ally1', '#status-ally1', 'block1');
+  let water = new Ally('fish', 'water', waterATK, 'ally2', '#status-ally2', 'block2');
 
-	let abraxes = new Boss('Abraxes', 'darkness', 'Ultima', 300, 'Illumina', 400, bossImg1, '#enemy-meter');
+  let allyList = [fire, water];
 
-l(abraxes);
+  // extends being into boss
+  class Boss extends Being {
+    constructor(name, element, atk, img, id, position) {
+      super(name, element, atk, img, id);
+      this.meterHP = '.HP-meter-enemy';
+      this.meterMP = '.MP-meter-enemy';
+      this.progress = '.boss-progress';
+      // this.counter = '.counter';
+      // this.nameSlot = '.name-ally';
+      this.position = position;
+      this.widthHP = 100;
+      this.widthMP = 70;
+      // this.being = "Boss";
+    }
+    // methods
+    meterFindBossHP() {
+      return this.id + ' ' + this.meterHP + ' ' + this.progress;
+    }
+    meterFindBossMP() {
+      return this.id + ' ' + this.meterMP + ' ' + this.progress;
+    }
+    counterFindBossHP() {
+      return this.id + ' ' + this.meterHP+ ' ' + this.counter;
+    }
+    counterFindBossMP() {
+      return this.id + ' ' + this.meterMP+ ' ' + this.counter;
+    }
+  }
+
+  let abraxes = new Boss('Abraxes', 'darkness', fireATK, 'abraxes', '#enemy-meter');
+
+  // l(abraxes);
 
 /*
 |--------------------------------------------------------------------------
@@ -165,77 +201,192 @@ l(abraxes);
 |--------------------------------------------------------------------------
 */
 
-const allySpace1 = $('#ally-avatar1 .ball');
-const allySpace2 = $('#ally-avatar2 .ball');
+  const allySpace1 = $('#ally-avatar1 .ball');
+  const allySpace2 = $('#ally-avatar2 .ball');
 
-const bossSpace = $('#enemy-avatar');
+  const bossSpace = $('#enemy-avatar');
 
-// generating images on battle screen
-function imgGen(ally1, ally2, boss) {
-	allySpace1.css('background', `url(${ally1}`);
-	allySpace2.css('background', `url(${ally2}`);
+  // generating images on battle screen
+  function imgGen(ally1, ally2, boss) {
+    allySpace1.addClass(ally1.img);
+    allySpace2.addClass(ally2.img).addClass("size");
+    // l(boss)
 
-	bossSpace.css('background', `url(${boss}`);
-}
+    bossSpace.addClass(boss.img);
+  }
+  imgGen(fire, water, abraxes);
 
-imgGen(fire.img, water.img, abraxes.img);
+  // generating HP/MP bars for allies/bosses
+  function statusGen(ally) {
+    // gets HP/MP values from ally
 
-// generating HP/MP bars for allies/bosses
-function statusGen(ally) {
-	// gets HP/MP values from ally
+    // puts HP/MP count into counter boxes
+    $(ally.counterFindAllyHP()).text(ally.totalHP);
+    $(ally.counterFindAllyMP()).text(ally.totalMP);
 
-// puts HP/MP count into counter boxes
-	$(ally.counterFindHP()).text(ally.totalHP);
-	$(ally.counterFindMP()).text(ally.totalMP);
+    // puts name into name slot
+    $(ally.nameSlot).text(`${ally.name}`);
+  }
+  statusGen(fire);
 
-// puts name into name slot
-	$(ally.nameSlot).text(`${ally.name}`);
-}
+  // attack select
 
-statusGen(fire);
+  const atkList = [];
+  const attacks = [];
 
-const players = [];
+/*
+|--------------------------------------------------------------------------
+| Attack Select
+|--------------------------------------------------------------------------
+*/
 
-function turn(players){
-	// order of players
+  // how to select which character to get moves from
+  $('.atk-block').on('click', function () {
+    $('#attack').show();
+    const id = $(this).attr('id');
 
-	
+    // l("id");
+    // l(id);
+    let currentAlly;
 
-	fire.currentHP = 599;
-	progress(fire);
-}
+    for (ally of allyList){
+      if( ally.position === id){
+        currentAlly = ally;
+      }
+    }
 
-turn();
+    if(atkList.length < 4 && atkList.indexOf(currentAlly.attack) === -1) {
+      atkList.push(currentAlly.attack);
+    }
 
-//damage calc
-function damage(hitPoints, attack){
-	return hitPoints - attack;
-}
+    // l(atkList)
 
-	// progress meter
-	// reference - https://www.w3schools.com/howto/howto_js_progressbar.asp
-	function progress(being){
-		// width of the total size of the div (80%)
-		let width = 80;
-		// the decrementation of the progress bar
-		let percent = setInterval(frame, 50);
+    $(".atk-choice").each((i, el) => {
+      $(el).text(currentAlly.attack[i].name);
+    })
 
-		//function for calculation of the decrement step
-		function frame(){
-			// l((being.currentHP/being.totalHP)*80);
-			// if width is less than ratio of current HP (to be reflected on the bar), stop
-			if(width <= (being.currentHP/being.totalHP)*80) {
-				//stops any more decrements
-				clearInterval(percent);
-				//  otherwise, decrement the meter
-			}else{
-				// ratio for decrementation
-				width-=(being.currentHP/being.totalHP);
-				// using decrement ratio to change the actual size of the progress bar div
-				$(fire.meterFindHP()).css('width', `${width}%`);
-			}
-		}
-	}
+    // $('this').off('click');
+
+    $('.atk-choice').on('click', function () {
+
+      $('#attack').hide();
+
+      const atkId = `#${$(this).attr('id')}`;
+
+      let currentATK;
+
+      // l($(atkId).text());
+      // l(currentAlly.attack);
+      for (atkArr of atkList){
+        for (atk of atkArr) {
+          if( atk.name === $(atkId).text()){
+            currentATK = atk;
+            // console.log($(atkId).text());
+            // console.log(atk);
+            // console.log(attacks);
+          } 
+        }
+      }
+
+      if(attacks.length < 4 && attacks.indexOf(currentATK) === -1) {
+        attacks.push(currentATK);
+      }
+      l(attacks);
+      
+      // $(this).off('click');
+    });
+
+  });
+
+  function turn(atkArr) {
+    for (let i=1;i<=atkArr.length;i++) {
+      move(i);
+    }
+  }
+
+  // turn()
+
+  function move(order) {
+    // order of players
+    // let playerNum = attacks.length;
+
+    // for(let i = 0; i < playerNum; i++) {
+      attacks.push(fire.attack[0]);
+      // l(fire.attack[0])
+
+      damage(abraxes, attacks[0]);
+      setTimeout(function(){
+        l(abraxes.currentHP)
+        
+        // abraxes.currentHP -= 100;
+        // abraxes.currentMP -= 10;
+        // l(abraxes.currentHP);
+        // l(abraxes.currentMP)
+
+        progress(abraxes, abraxes.widthHP, 'HP');
+      }, 1000*order)
+
+      // progress(abraxes, abraxes.widthMP, 'MP');
+      
+    // }
+
+    // progress(fire, fire.widthHP, 'HP');
+    // progress(fire, fire.widthMP, 'MP')
+
+    // (fire.constructor.name)
+  }
+
+  move(1);
+
+  // damage calc
+  function damage(being, atkArr) {
+    // l(atkArr.dmg)
+    return being.currentHP -= atkArr.dmg;
+  }
+
+  /*
+  |--------------------------------------------------------------------------
+  | Progress
+  |--------------------------------------------------------------------------
+  */
+
+  // progress meter
+  // reference - https://www.w3schools.com/howto/howto_js_progressbar.asp
+  function progress(being, start, meter) {
+    // width of the total size of the div (80%)
+    let width = start;
+    // console.log(width);
+    let name = being.constructor.name;
+
+    // the decrementation of the progress bar
+    const percent = setInterval(frame, 50);
+    // const counter = setInterval(countdown, 50)
+
+    // function for calculation of the decrement step
+    function frame() {
+      // l((being.currentHP/being.totalHP)*80);
+      // if width is less than ratio of current HP (to be reflected on the bar), stop
+      // l(start)
+      if (width <= (being[`current${meter}`] / being[`total${meter}`]) * start) {
+        // console.log((being[`current${meter}`] / being[`total${meter}`]) * width)
+        //stops any more decrements
+        clearInterval(percent);
+        //  otherwise, decrement the meter
+      } else {
+        // ratio for decrementation
+        width -= (being[`current${meter}`] / being[`total${meter}`]);
+        // l(being[`current${meter}`])
+        // using decrement ratio to change the actual size of the progress bar div
+        $(being[`meterFind${name}${meter}`]()).css('width', `${width}%`);
+        // l(being[`meterFiname}${meter}`]());
+      }
+    }
+
+    function countdown() {
+      $(being.counterFindAllyHP()).text(fire.currentHP);
+      $(being[`counterFind${name}${meter}`]()).text(being.currentHP);
+    }
+  }
 
 // test
 // let p = $('#status-ally1 div .progress');
@@ -251,6 +402,8 @@ function damage(hitPoints, attack){
 */
 
 // pseudo code - 1hr
-// basic skeleton framing - 2 hr
+// basic skeleton framing - 3.75 hr
+// advanced styling - 
 // adding jquery to eslint - 1 hr
-// adding more jquery functionality -3.5 hr
+// adding more jquery functionality -9 hr
+// updating readme - .5 hr

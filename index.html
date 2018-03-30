@@ -12,8 +12,12 @@
 		<!-- enemy/turn meter -->
 		<div id="meters">
 			<div id="enemy-meter">
-				<div class="HP-meter-enemy"></div>
-				<div class="MP-meter-enemy"></div>
+				<div class="HP-meter-enemy">
+					<div class="boss-progress"></div>
+				</div>
+				<div class="MP-meter-enemy">
+					<div class="boss-progress"></div>
+				</div>
 			</div>
 			<div id="turn-meter"></div>
 		</div>
@@ -25,17 +29,33 @@
 			</div>
 			<!-- allies -->
 			<div id="allies">
-				<div class="ally-avatar" id="ally-avatar1">
-					<div class="ball"></div>
+				<div id="avatar">
+					<div class="ally-avatar" id="ally-avatar1">
+						<div class="ball"></div>
+					</div>
+					<div class="ally-avatar" id="ally-avatar2">
+						<div class="ball"></div>
+					</div>
+					<div class="ally-avatar" id="ally-avatar3">
+						<div class="ball"></div>
+					</div>
+					<div class="ally-avatar" id="ally-avatar4">
+						<div class="ball"></div>
+					</div>
 				</div>
-				<div class="ally-avatar" id="ally-avatar2">
-					<div class="ball"></div>
+				<div id="panel">
+					<div id="panel-head"></div>
+					<div class="atk-block" id="block1">hi1</div>
+					<div class="atk-block" id="block2">hi2</div>
+					<div class="atk-block" id="block3">hi3</div>
+					<div class="atk-block" id="block4">hi4</div>
 				</div>
-				<div class="ally-avatar" id="ally-avatar3">
-					<div class="ball"></div>
-				</div>
-				<div class="ally-avatar" id="ally-avatar4">
-					<div class="ball"></div>
+				<div id="attack">
+					<div id="attack-head"></div>
+					<div class="atk-choice" id="atk1">atk1</div>
+					<div class="atk-choice" id="atk2">atk1</div>
+					<div class="atk-choice" id="atk3">atk1</div>
+					<div class="atk-choice" id="atk4">atk1</div>
 				</div>
 			</div>
 		</div>
@@ -56,20 +76,41 @@
 			</div>
 			<!-- ally 2 -->
 			<div class="status-allies" id="status-ally2">
-				<div class="HP-meter-ally"></div>
-				<div class="MP-meter-ally"></div>
+				<div class="name-ally"></div>
+				<div class="HP-meter-ally">
+					<div class="counter"></div>
+					<div class="progress"></div>
+				</div>
+				<div class="MP-meter-ally">
+					<div class="counter"></div>
+					<div class="progress"></div>
+				</div>
 				<div class="status-marker"></div>
 			</div>
 			<!-- ally 3 -->
 			<div class="status-allies" id="status-ally3">
-				<div class="HP-meter-ally"></div>
-				<div class="MP-meter-ally"></div>
+				<div class="name-ally"></div>
+				<div class="HP-meter-ally">
+					<div class="counter"></div>
+					<div class="progress"></div>
+				</div>
+				<div class="MP-meter-ally">
+					<div class="counter"></div>
+					<div class="progress"></div>
+				</div>
 				<div class="status-marker"></div>
 			</div>
 			<!-- ally 4 -->
 			<div class="status-allies" id="status-ally4">
-				<div class="HP-meter-ally"></div>
-				<div class="MP-meter-ally"></div>
+				<div class="name-ally"></div>
+				<div class="HP-meter-ally">
+					<div class="counter"></div>
+					<div class="progress"></div>
+				</div>
+				<div class="MP-meter-ally">
+					<div class="counter"></div>
+					<div class="progress"></div>
+				</div>
 				<div class="status-marker"></div>
 			</div>
 		</div>
@@ -77,11 +118,11 @@
 
 	<!-- ***** SCRIPT TAGS ***** -->
 	<!-- JQuery CDN -->
-	<script
+	<!-- <script
 	  src="https://code.jquery.com/jquery-3.3.1.min.js"
 	  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
 	  crossorigin="anonymous">
-  </script>
+  </script> -->
   <!-- JQuery Local File (not working) -->
 	<script src="jquery-3.3.1.min.js"></script>
 	<!-- JS script -->

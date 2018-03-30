@@ -165,19 +165,6 @@ Time frames are also key in the development cycle.  You have limited time to cod
 | PostMVP | L | 10hrs| 00hrs | 00hrs |
 | Super Total |  | 50hrs| 00hrs | 00hrs |
 
-### High Priority
-- Game Logic (Battle Calculation and Turn Loop)
-- Win Condition
-
-### Medium Priority
-- Basic Game Styling
-- Landing Page
-- Restart
-
-## Low Priority
-- Advanced Game Styling
-- Add PostMVP Features
-
 ## Helper Functions
 Helper functions should be generic enought that they can be reused in other applications. Use this section to document all helper functions that fall into this category.
 

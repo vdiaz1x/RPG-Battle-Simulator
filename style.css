@@ -7,6 +7,7 @@
 *{
 	margin:0;
 	padding:0;
+	color:white;
 	/*border: 1px solid black;*/
 }
 
@@ -46,61 +47,15 @@
 	justify-content: space-between;
 }
 
+/*
+|--------------------------------------------------------------------------
+| Enemy
+|--------------------------------------------------------------------------
+*/
+
 #enemy-meter{
 	width:60%;
 	background: gray;
-}
-
-#turn-meter{
-	width:30%;
-	background:orange;
-}
-
-#enemy, #allies{
-	width:50%;
-	height:100%;
-	border: 2px solid yellow;
-	display:flex;
-	justify-content: center;
-	flex-wrap: wrap;
-	align-content: center;
-}
-
-#enemy-avatar, .ally-avatar{
-	border:1px solid white;
-}
-
-#enemy-avatar{
-	width:90%;
-	/*sample*/
-	/*background:url("https://vignette.wikia.nocookie.net/vsbattles/images/d/dd/Demon-ffvi-ios.png/revision/latest?cb=20160816201328");*/
-	background-size:100% 100%;
-}
-
-.ally-avatar{
-	width:35%;
-	height:35%;
-}
-
-.ball{
-	width:60%;
-	height:100%;
-	/*border-radius:50%;*/
-	/*border:2px solid white;*/
-	/*sample*/
-	/*background:url("https://cdn.shopify.com/s/files/1/0862/4240/products/1_fff69c51-5a4d-409e-b644-60268ee1570f.gif?v=1441092369");*/
-	background-size: 100% 100%;
-}
-
-.status-allies{
-	width:24%;
-	background-color:#222;
-	color:white;
-	/*border: 2px solid purple;*/
-}
-
-.name-ally{
-	height:20%;
 }
 
 .HP-meter-enemy, .MP-meter-enemy{
@@ -115,8 +70,128 @@
 	width:60%;
 }
 
-.HP-meter-enemy, .MP-meter-enemy, .HP-meter-ally, .MP-meter-ally, .status-marker{
-	/*border:1px solid red;*/
+.boss-progress{
+	height:100%;
+}
+
+.HP-meter-enemy .boss-progress{
+	background-color: green;
+}
+
+.MP-meter-enemy .boss-progress{
+	background-color: purple;
+}
+
+#turn-meter{
+	width:30%;
+	background:orange;
+}
+
+#enemy, #allies{
+	width:50%;
+	height:100%;
+	/*border: 2px solid yellow;*/
+	display:flex;
+	justify-content: center;
+	/*flex-wrap: wrap;*/
+	/*align-content: space-around;*/
+}
+
+#enemy-avatar, .ally-avatar{
+	border:1px solid white;
+	background-size:100% 100%;
+}
+
+#enemy-avatar{
+	width:90%;
+	/*sample*/
+	/*background:url("https://vignette.wikia.nocookie.net/vsbattles/images/d/dd/Demon-ffvi-ios.png/revision/latest?cb=20160816201328");*/
+}
+
+/*avatar class*/
+.abraxes{
+	background:url("https://vignette.wikia.nocookie.net/vsbattles/images/d/dd/Demon-ffvi-ios.png/revision/latest?cb=20160816201328");
+}
+
+.size{background-size:100% 100%;}
+
+/*
+|--------------------------------------------------------------------------
+| Allies
+|--------------------------------------------------------------------------
+*/
+#avatar{
+	width:65%;
+	height:100%;
+	/*display: inline-flex;*/
+	display:flex;
+	justify-content: space-around;
+	flex-wrap: wrap;
+	align-content: space-around;
+}
+
+.ally-avatar{
+	width:45%;
+	height:45%;
+}
+
+.ball{
+	width:60%;
+	height:100%;
+	background-size:100% 100%;
+	/*border-radius:50%;*/
+	/*border:2px solid white;*/
+	/*sample*/
+	/*background:url("https://cdn.shopify.com/s/files/1/0862/4240/products/1_fff69c51-5a4d-409e-b644-60268ee1570f.gif?v=1441092369");*/
+	background-size: 100% 100%;
+}
+
+.ally1, .ally2{
+	background:url("https://cdn.shopify.com/s/files/1/0862/4240/products/1_fff69c51-5a4d-409e-b644-60268ee1570f.gif?v=1441092369");
+	background-size:100% 100%;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Panel
+|--------------------------------------------------------------------------
+*/
+
+#panel, #attack{
+	width:30%;
+	height:100%;
+	border:1px solid white;
+}
+
+#attack{
+	z-index: 10;
+	display:none;
+}
+
+#panel-head, #attack-head{
+	height:10%;
+}
+
+.atk-block, .atk-choice{
+	height:15%;
+	border: 1px solid white;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Ally Status
+|--------------------------------------------------------------------------
+*/
+
+.status-allies{
+	width:24%;
+	background-color:#222;
+	color:white;
+	/*border: 2px solid purple;*/
+}
+
+.name-ally{
+	height:20%;
 }
 
 .HP-meter-ally, .MP-meter-ally{
