@@ -250,22 +250,13 @@ $(() => {
   const atkList = [];
   const attacks = [];
 
-  /*
-  |--------------------------------------------------------------------------
-  | Click Events
-  |--------------------------------------------------------------------------
-  */
-
-  //
+  let turnGo = false;
 
   /*
   |--------------------------------------------------------------------------
-  | Attack Select
+  | Functions
   |--------------------------------------------------------------------------
   */
-
-  // how to select which character to get moves from
-  $('.atk-block').on('click', clickAlly);
 
   function clickAlly() {
     $('#attack').show();
@@ -274,11 +265,6 @@ $(() => {
     // help from jason , get url for prototype.find
     // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find
     const currentAlly = allyList.find(ally => ally.position === id);
-    // for (ally of allyList) {
-    //   if (ally.position === id) {
-    //     currentAlly = ally;
-    //   }
-    // }
 
     if (atkList.length < 4 && atkList.indexOf(currentAlly.attack) === -1) {
       atkList.push(currentAlly.attack);
@@ -292,9 +278,6 @@ $(() => {
 
     $(this).off('click');
   }
-
-  // how to select which attack to use
-  $('.atk-choice').on('click', clickAttack);
 
   function clickAttack() {
     $('#attack').hide();
@@ -314,55 +297,96 @@ $(() => {
     if (attacks.length < 4 && attacks.indexOf(currentATK) === -1) {
       attacks.push(currentATK);
     }
-    l(attacks);
+    // l(attacks);
 
-    $(this).off('click');
-  }
+    // $(this).off('click');
 
-
-  function turn(atkArr) {
-    for (let i = 1; i <= atkArr.length; i += 1) {
-      move(i);
+    if (attacks.length === 4){
+      turnGo = true;
     }
   }
 
+  /*
+  |--------------------------------------------------------------------------
+  | Click Events
+  |--------------------------------------------------------------------------
+  */
+
+  // how to select which character to get moves from
+  $('.atk-block').on('click', clickAlly);
+
+  // how to select which attack to use
+  $('.atk-choice').on('click', clickAttack);
+
+  // test
+  // $('body').on('update', function(event) {
+  //    // alert('hi');
+  //    progress(abraxes, 'HP');
+  // });
+
+  /*
+  |--------------------------------------------------------------------------
+  | Attack Select
+  |--------------------------------------------------------------------------
+  */
+
+  let checkTurn = setInterval(function (){
+    l(turnGo);
+    if (turnGo) {
+      turn();
+      turnGo = false;
+      clearInterval(checkTurn);
+    }
+  }, 5000);
+
+  function turn() {
+    for (let i = 0; i < 4; i += 1) {
+      move(i);
+
+      // if(abraxes.currentHP <= 0) {
+      //   alert('win');
+      // } else {
+      //   alert('keep fighting');
+      // }
+    }
+
+    //test
+    // idea from https://scottiestech.info/2014/07/01/javascript-fun-looping-with-a-delay/
+      // (function atkLoop (i) {
+      //   setTimeout(function () {
+      //     move(i);
+      //     if (--i) {          // If i > 0, keep going
+      //       atkLoop(i);       // Call the loop again, and pass it the current value of i
+      //     }
+      //   }, 3000);
+      // })(3);
+  }
+
   // turn()
+  // move(1)
 
   function move(order) {
     // order of players
-    // let playerNum = attacks.length;
-
-    // for(let i = 0; i < playerNum; i++) {
-    attacks.push(fire.attack[0]);
-    // l(fire.attack[0])
-
-    damage(abraxes, attacks[0]);
     setTimeout(() => {
-      l(abraxes.currentHP);
+      damage(abraxes, attacks[order]);
+      progress(abraxes, 'HP');
+      // $('body').trigger('update');
+    }, 4000 * order);
+    // moving progress inside setTimeout makes it not work unless the multiplier from the setTimeout time is removed, which makes the progress bar stutter as it goes down. outside, it only works once
 
-      // abraxes.currentHP -= 100;
-      // abraxes.currentMP -= 10;
-      // l(abraxes.currentHP);
-      // l(abraxes.currentMP)
-
-      progress(abraxes, abraxes.widthHP, 'HP');
-    }, 3000 * order);
-
-    // progress(abraxes, abraxes.widthMP, 'MP');
-    // }
-
-    // progress(fire, fire.widthHP, 'HP');
-    // progress(fire, fire.widthMP, 'MP')
-
-    // (fire.constructor.name)
+    if(abraxes.currentHP <= 0) {
+      alert('win');
+    } else {
+      alert('keep fighting');
+    }
+    
   }
 
   // move(1);
 
   // damage calc
-  function damage(being, atkArr) {
-    // l(atkArr.dmg)
-    being.currentHP -= atkArr.dmg;
+  function damage(being, atk) {
+    being.currentHP -= atk.dmg;
     return being.currentHP;
   }
 
@@ -376,9 +400,18 @@ $(() => {
 
   // progress meter
   // reference - https://www.w3schools.com/howto/howto_js_progressbar.asp
-  function progress(being, start, meter) {
-    // width of the total size of the div (80%)
-    let width = start;
+  function progress(being, meter) {
+    // width of the total size of the div
+    const start = being[`width${meter}`];
+    console.log(start);
+
+    console.log('current', being.currentHP);
+    let width = (being.currentHP / being.totalHP) * start;
+
+    console.log('width', width);
+
+    console.log((being.currentHP / being.totalHP) * start);
+
     // console.log(width);
 
     // help from jason
@@ -386,29 +419,25 @@ $(() => {
     const { name } = being.constructor;
 
     // the decrementation of the progress bar
-    const percent = setInterval(frame, 50);
+    const percent = setInterval(frame, 10);
     // const counter = setInterval(countdown, 50)
 
     // function for calculation of the decrement step
     function frame() {
-      // l((being.currentHP/being.totalHP)*80);
       // if width is less than ratio of current HP (to be reflected on the bar), stop
-      // l(start)
       if (width <= (being[`current${meter}`] / being[`total${meter}`]) * start) {
-        // console.log((being[`current${meter}`] / being[`total${meter}`]) * width)
         // stops any more decrements
         clearInterval(percent);
         //  otherwise, decrement the meter
       } else {
         // ratio for decrementation
         width -= (being[`current${meter}`] / being[`total${meter}`]);
-        // l(being[`current${meter}`])
         // using decrement ratio to change the actual size of the progress bar div
         $(being[`meterFind${name}${meter}`]()).css('width', `${width}%`);
-        // l(being[`meterFiname}${meter}`]());
       }
     }
 
+    // function for inputting the meter counter
     function countdown() {
       $(being.counterFindAllyHP()).text(fire.currentHP);
       $(being[`counterFind${name}${meter}`]()).text(being.currentHP);
@@ -432,6 +461,6 @@ $(() => {
 // basic skeleton framing - 3.75 hr
 // advanced styling - //
 // adding jquery to eslint - 1 hr
-// adding more jquery functionality -9.5 hr
+// adding more jquery functionality -13 hr
 // updating readme - .5 hr
 // jquery syntax - .5 hr
