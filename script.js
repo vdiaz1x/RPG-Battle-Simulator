@@ -309,8 +309,6 @@ $(() => {
       // move(i);
     }
 
-    bossDamage(abraxes, allyList);
-
     //test
     // debugger;
     // idea from https://scottiestech.info/2014/07/01/javascript-fun-looping-with-a-delay/
@@ -323,6 +321,9 @@ $(() => {
           }
         }, 3000);
       })(3);
+      setTimeout(function(){
+        bossDamage(abraxes, allyList);
+      },15000);
   }
 
   // turn()
@@ -351,11 +352,13 @@ $(() => {
   // damage calc
   function damage(boss, ally, atk) {
     // console.log(being)
-    console.log(atk)
+    // console.log(atk)
     boss.currentHP -= atk.dmg;
     ally.currentMP -= atk.cost;
-    console.log('abraxes hp', boss.currentHP)
-    return boss.currentHP;
+    progress(abraxes, 'HP')
+    progress(ally, 'MP');
+    // console.log('abraxes hp', boss.currentHP)
+    // return boss.currentHP;
   }
 
   function bossDamage(boss, allyList) {
@@ -367,7 +370,6 @@ $(() => {
     allyList.forEach((ally) => {
       ally.currentHP -= boss.attack[1].dmg;
       boss.currentMP -= boss.attack[1].cost;
-      // console.log('boss damage', ally.currentHP);
       progress(ally, 'HP');
     });
     progress(abraxes, 'MP');
@@ -383,6 +385,7 @@ $(() => {
 
   // progress meter
   // reference - https://www.w3schools.com/howto/howto_js_progressbar.asp
+  // had to modify with animate
   function progress(being, meter) {
     // width of the total size of the div
     const start = being[`width${meter}`];
@@ -394,29 +397,32 @@ $(() => {
     const { name } = being.constructor;
 
     // the decrementation of the progress bar
-    const percent = setInterval(frame, 10);
-    const counter = setInterval(countdown, 50)
+    // const percent = setInterval(frame, 10);
+    // const counter = setInterval(countdown, 10)
 
     // function for calculation of the decrement step
-    function frame() {
-      // if width is less than ratio of current HP (to be reflected on the bar), stop
-      if (width <= (being[`current${meter}`] / being[`total${meter}`]) * start) {
-        // stops any more decrements
-        clearInterval(percent);
-        //  otherwise, decrement the meter
-      } else {
-        // ratio for decrementation
-        width -= (being[`current${meter}`] / being[`total${meter}`]);
-        // using decrement ratio to change the actual size of the progress bar div
-        $(being[`meterFind${name}${meter}`]()).css('width', `${width}%`);
-      }
-    }
+    // function frame() {
+    // if width is less than ratio of current HP (to be reflected on the bar), stop
+    // if (width <= (being[`current${meter}`] / being[`total${meter}`]) * start) {
+    //   // stops any more decrements
+    //   clearInterval(percent);
+    //   //  otherwise, decrement the meter
+    // } else {
+    //   // ratio for decrementation
+    //   width -= (being[`current${meter}`] / being[`total${meter}`]);
+    //   // using decrement ratio to change the actual size of the progress bar div
+    //   $(being[`meterFind${name}${meter}`]()).css('width', `${width}%`);
+    // }
+
+    $(being[`meterFind${name}${meter}`]()).animate( {
+      width:`${width}%`}, {duration: 1000,easing: 'linear'} )
+    // }
 
     // function for inputting the meter counter
-    function countdown() {
+    // function countdown() {
       // $(being.counterFindAllyHP()).text(fire.currentHP);
-      $(being[`counterFind${name}${meter}`]()).text(being.currentHP);
-    }
+      $(being[`counterFind${name}${meter}`]()).text(being[`current${meter}`]);
+    // }
   }
 
 // end
