@@ -7,11 +7,52 @@
 	<link rel="stylesheet" href="style.css">
 </head>
 <body>
-	<!-- ***** Landing Page ***** -->
-	<div id="landing"></div>
+	<!-- ***** LANDING PAGE ***** -->
+	<div id="landing">
+		<div id="question">Are you brave or a coward?</div>
+		<div id="answer">
+			<div class="button" id="yes">Brave</div>
+			<div class="button" id="no">Coward</div>
+		</div>
+	</div>
 
-	<!-- ***** BATTLE SCREEN ***** -->
-	<div id="select"></div>
+	<!-- ***** CHARACTER SELECT ***** -->
+	<div id="select">
+		<div id="enemy-select">
+			<div class="enemy-select-square"></div>
+			<div class="enemy-select-square"></div>
+			<div class="enemy-select-square"></div>
+		</div>
+		<div id="option">
+			<div class="enter-name">
+				<label for="">What is your name, adventurer?</label>
+				<input type="text" id="primary">
+			</div>
+			<div class="enter-name">
+				<label for="">What are the names of your companions?</label>
+				<div id="party-name">
+					<input type="text" id="secondary">
+					<input type="text" id="ternary">
+					<input type="text" id="quadnary">
+				</div>
+			</div>
+			<div id="submit">
+				<div id="submit-button">Submit</div>
+			</div>
+		</div>
+		<div id="ally-select">
+			<div class="ally-select-square fire" data-ally="fire"></div>
+			<div class="ally-select-square water" data-ally="water"></div>
+			<div class="ally-select-square air" data-ally="air"></div>
+			<div class="ally-select-square earth" data-ally="earth"></div>
+			<div class="ally-select-square ice" data-ally="ice"></div>
+			<div class="ally-select-square thunder" data-ally="thunder"></div>
+			<div class="ally-select-square wood" data-ally="wood"></div>
+			<div class="ally-select-square metal" data-ally="metal"></div>
+			<div class="ally-select-square light" data-ally="light"></div>
+			<div class="ally-select-square dark" data-ally="dark"></div>
+		</div>
+	</div>
 
 	<!-- ***** BATTLE SCREEN ***** -->
 	<div id="battle">
@@ -23,7 +64,11 @@
 				</div>
 				<div class="MP-meter-enemy">
 					<div class="boss-progress"></div>
+					<div class="boss-counter">
+						<span id="boss-HP"></span>/<span id="boss-MP"></span>
+					</div>
 				</div>
+			<div class="name-boss"></div>
 			</div>
 			<div id="turn-meter"></div>
 		</div>
@@ -131,6 +176,7 @@
   </script> -->
   <!-- JQuery Local File (not working) -->
 	<script src="jquery-3.3.1.min.js"></script>
+	<script src="classes.js"></script>
 	<!-- JS script -->
 	<script src="script.js"></script>
 </body>
