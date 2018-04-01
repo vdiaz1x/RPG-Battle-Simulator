@@ -156,6 +156,22 @@ input, #submit-button{
 	display: inline-block;
 }
 
+.selected{
+	/*background-color:gray;*/
+}
+
+.selected::after{
+	content:"Selected";
+	width: 100%;
+	/*text-align: center;*/
+	display:flex;
+	justify-content: center;
+	align-items: center;
+	height:100%;
+	background-color: rgba(0,0,0,7);
+	z-index: 100;
+}
+
 /*
 |--------------------------------------------------------------------------
 | Elements
@@ -163,9 +179,10 @@ input, #submit-button{
 */
 
 .fire{
-	background-image: url("https://sciencenotes.org/wp-content/uploads/2014/06/Alchemy_fire.png");
+	font-weight: bold;
+	background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Mars_symbol.svg/2000px-Mars_symbol.svg.png"), linear-gradient(135deg, rgba(255,2,2,1) 0%, rgba(108,0,0,1) 100%);
 	background-size:100% 100%;
-	background-color:red;
+	/*background-color:linear-gradient(135deg, rgba(255,2,2,1) 0%, rgba(108,0,0,1) 100%);*/
 }
 
 .fire:hover::before{
@@ -183,8 +200,8 @@ input, #submit-button{
 }
 
 .air{
-	background-image: url("https://sciencenotes.org/wp-content/uploads/2014/06/Alchemy_Air.png");
-	background-color:gray;
+	background-image: url("https://sciencenotes.org/wp-content/uploads/2014/06/Alchemy_Air.png"), linear-gradient(135deg, rgba(255,243,247,1) 0%, rgba(209,145,232,1) 100%);
+	/*background-color:gray;*/
 	background-size:100% 100%;
 }
 
@@ -193,8 +210,8 @@ input, #submit-button{
 }
 
 .earth{
-	background-image: url("https://sciencenotes.org/wp-content/uploads/2014/06/Alchemy_Earth.png");
-	background-color:brown;
+	background-image: url("https://sciencenotes.org/wp-content/uploads/2014/06/Alchemy_Earth.png"), linear-gradient(135deg, rgba(186,100,80,1) 0%, rgba(56,24,16,1) 100%);
+	/*background-color:brown;*/
 	background-size:100% 100%;
 }
 
@@ -203,8 +220,8 @@ input, #submit-button{
 }
 
 .ice{
-	background-image: url("https://sciencenotes.org/wp-content/uploads/2014/06/Alchemy_fire.png");
-	background-color:lightblue;
+	background-image: url("https://sciencenotes.org/wp-content/uploads/2014/06/Alchemy_fire.png"), linear-gradient(135deg, rgba(107,250,255,1) 0%, rgba(0,170,176,1) 100%);
+	/*background-color:lightblue;*/
 	background-size:100% 100%;
 }
 
@@ -284,7 +301,8 @@ input, #submit-button{
 }
 
 .goetia-symbol{
-	background-image: /*url(),*/ linear-gradient(to right, #0f0c29, #302b63, #24243e);
+	background-image: url("https://openclipart.org/download/263888/Draclroborous.svg"), linear-gradient(to right, #0f0c29, #302b63, #24243e);
+	background-size:100% 100%;
 }
 
 .goetia-symbol:hover::before{
@@ -292,7 +310,8 @@ input, #submit-button{
 }
 
 .demiurge-symbol{
-	background-image: /*url(),*/ linear-gradient(to right, #f0f2f0, #000c40);
+	background-image: url("https://cdn4.iconfinder.com/data/icons/illuminati/154/sign-eye-label-illuminati-sect-pyramid-512.png"), linear-gradient(to right, #f0f2f0, #000c40);
+	background-size:100% 100%;
 }
 
 .demiurge-symbol:hover::before{
@@ -324,6 +343,19 @@ input, #submit-button{
 	background-size: 100% 100%;
 	display: flex;
 	justify-content: flex-start;
+}
+
+#message{
+	background:rgba(0,0,0,.5);
+	height:10vh;
+	width: 100%;
+	/*margin: 0 auto;*/
+	position: absolute;
+	bottom: 20%;
+	text-align: center;
+	font-size: 30px;
+	display: none;
+	/*border: 1px solid white;*/
 }
 
 #status{
@@ -461,14 +493,20 @@ input, #submit-button{
 |--------------------------------------------------------------------------
 */
 
-#panel, #attack{
+#panel{
 	width:30%;
 	height:100%;
+	background-color:rgba(0,0,0,.8);
 	border:1px solid white;
 }
 
 #attack{
 	z-index: 10;
+	position: absolute;
+	height: 70vh;
+	width:20%;
+	right:0;
+	background-color:rgba(0,0,0,.8);
 	display:none;
 }
 
@@ -480,6 +518,8 @@ input, #submit-button{
 	height:15%;
 	border: 1px solid white;
 }
+
+/*.atk-block::before, .atk-choice::before{content:"";display:inline-block!important;width:0;height:0;border-right:30px solid #666666;border-top:30px solid transparent;border-bottom:30px solid transparent}*/
 
 /*
 |--------------------------------------------------------------------------

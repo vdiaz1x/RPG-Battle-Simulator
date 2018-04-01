@@ -201,5 +201,3 @@ class Boss extends Being {
 
 // creating bosses
 const abraxes = new Boss('Abraxes', 'darkness', abraxesATK, 'abraxes');
-
-// l(abraxes);

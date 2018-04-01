@@ -73,82 +73,30 @@ $(() => {
 
   /*
   |--------------------------------------------------------------------------
-  | Useful/Test Functions
-  |--------------------------------------------------------------------------
-  */
-
-  function l(log) {
-    console.log(log);
-  }
-
-
-  /*
-  |--------------------------------------------------------------------------
   | Battle Functions
   |--------------------------------------------------------------------------
   */
 
   const allySpace1 = $('#ally-avatar1 .ball');
   const allySpace2 = $('#ally-avatar2 .ball');
-
+  const allySpace3 = $('#ally-avatar3 .ball');
+  const allySpace4 = $('#ally-avatar4 .ball');
   const bossSpace = $('#enemy-avatar');
 
   // generating images on battle screen
-  function imgGen(ally1, ally2, boss) {
+  function imgGen(ally1, ally2, ally3, ally4, boss) {
     allySpace1.addClass(ally1.img);
-    allySpace2.addClass(ally2.img).addClass('size');
-    // l(boss)
-
+    allySpace2.addClass(ally2.img);
+    allySpace3.addClass(ally1.img);
+    allySpace4.addClass(ally1.img);
     bossSpace.addClass(boss.img);
   }
 
-  imgGen(fire, water, abraxes);
+  imgGen(fire, water, air, earth, abraxes);
 
   // generating HP/MP bars for allies/bosses
-  function statusGen(ally) {
-    // gets HP/MP values from ally
-
-    // puts HP/MP count into counter boxes
-    $(ally.counterFindAllyHP()).text(ally.totalHP);
-    $(ally.counterFindAllyMP()).text(ally.totalMP);
-
-    // l(ally.counterFindAllyHP());
-    // l(ally.counterFindAllyMP());
-
-    // puts name into name slot
-    $(ally.nameFindAlly()).text(`${ally.name}`);
-    // console.log(ally.name)
-  }
-
-  function statusGenBoss(boss) {
-    // gets HP/MP values from ally
-
-    // puts HP/MP count into counter boxes
-    $(boss.counterFindBossHP()).text(boss.totalHP);
-    $(boss.counterFindBossMP()).text(boss.totalMP);
-
-    // l(boss.counterFindBossHP());
-    // l(boss.counterFindBossMP());
-
-    // puts name into name slot
-    $(boss.nameFindBoss()).text(`${boss.name}`);
-    // l(boss.nameFindBoss())
-  }
 
   statusGenBoss(abraxes);
-  // console.log(abraxes.counterFindBossHP())
-  // l(abraxes.id)
-  // l(abraxes.meterMP)
-  // l(abraxes.counter)
-
-  // statusGen(fire);
-
-  // function statusGenAll(){
-  //   allyList.forEach((ally) => {
-  //     statusGen(ally)
-  //   })
-  // }
-
 
   // attack select
   let nameList = [];
@@ -159,53 +107,14 @@ $(() => {
 
   /*
   |--------------------------------------------------------------------------
-  | Functions
+  | Character Select Functions
   |--------------------------------------------------------------------------
   */
 
-  function clickAlly() {
-    $('#attack').show();
-
-    const id = $(this).attr('id');
-
-    // help from jason , get url for prototype.find
-    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find
-    // debugger;
-    const currentAlly = allyList.find(ally => ally.position === id);
-    if (atkList.length < 4 && atkList.indexOf(currentAlly.attack) === -1) {
-      atkList.push(currentAlly.attack);
-    }
-    // help from jason
-    // http://api.jquery.com/jquery.each
-
-    $('.atk-choice').each((i, el) => {
-      $(el).text(currentAlly.attack[i].name);
-    });
-
-    $(this).off('click');
-  }
-
-  function clickAttack() {
-    $('#attack').hide();
-
-    const atkId = `#${$(this).attr('id')}`;
-
-    let currentATK;
-
-    for (atkArr of atkList) {
-      for (atk of atkArr) {
-        if (atk.name === $(atkId).text()) {
-          currentATK = atk;
-        }
-      }
-    }
-
-    if (attacks.length < 4 && attacks.indexOf(currentATK) === -1) {
-      attacks.push(currentATK);
-    }
-
-    if (attacks.length === 4) {
-      turnGo = true;
+  function advChoice() {
+    if ($(this).attr('id') === 'yes') {
+      $('#select').show();
+      $('#landing').hide();
     }
   }
 
@@ -240,6 +149,8 @@ $(() => {
       allyList.push(newAlly);
     }
 
+    $(this).addClass('selected');
+
     $(this).off('click');
   }
 
@@ -249,134 +160,107 @@ $(() => {
     const third = $('#ternary').val();
     const fourth = $('#quadnary').val();
 
-    nameList = [first, second, third, fourth]
+    nameList = [first, second, third, fourth];
     // l(names)
 
-    if(allyList.length === 4) {
+    if (allyList.length === 4) {
       allyList.forEach((ally, i) => {
         ally.name = nameList[i];
-      })
+      });
     }
-  }
 
-  function advChoice() {
-    if ($(this).attr("id") === "yes"){
-      $('#select').show();
-      $('#landing').hide();
-    }
-  }
-
-  /*
-  |--------------------------------------------------------------------------
-  | Event Listeners
-  |--------------------------------------------------------------------------
-  */
-
-  $('.button').on('click', advChoice);
-
-  $('.ally-select-square').on('click', charaSelect);
-
-  // how to select which character to get moves from
-  $('.atk-block').on('click', clickAlly);
-
-  // how to select which attack to use
-  $('.atk-choice').on('click', clickAttack);
-
-  $('#submit-button').on('click', grabNames);
-
-  /*
-  |--------------------------------------------------------------------------
-  | Attack Select
-  |--------------------------------------------------------------------------
-  */
-
-  let checkTurn = setInterval(function (){
-    l(turnGo);
-    if (turnGo) {
-      clearInterval(checkStatus)
-
-      turn();
-      turnGo = false;
-      clearInterval(checkTurn);
-    }
-  }, 5000);
-
-  let checkStatus = setInterval(function (){
-    if(allyList.length === 4 && nameList.length === 4) {
-      allyList.forEach((ally) => statusGen(ally));
-      $("#select").hide()
-      $("#battle").show();
-    }
-  },1000);
-
-  function turn() {
-    // idea from https://scottiestech.info/2014/07/01/javascript-fun-looping-with-a-delay/
-      (function atkLoop (i) {
-        console.log(i);
-        setTimeout(function () {
-          move(i);
-          if (++i && i<4) {          // If i > 0, keep going
-            atkLoop(i);       // Call the loop again, and pass it the current value of i
-          }
-        }, 3000);
-      })(0);
-      setTimeout(function(){
-        bossDamage(abraxes, allyList);
-      },15000);
-  }
-
-  // turn()
-  // move(1)
-
-  function move(order) {
-    // order of players
-    // setTimeout(() => {
-      console.log(attacks);
-      console.log(order)
-      damage(abraxes, allyList[order], attacks[order]);
-    //   progress(abraxes, 'HP');
-    //   // $('body').trigger('update');
-    // }, 4000);
-    // moving progress inside setTimeout makes it not work unless the multiplier from the setTimeout time is removed, which makes the progress bar stutter as it goes down. outside, it only works once. but then all the math for the HP deduction is done at once
-
-    // if(abraxes.currentHP <= 0) {
-    //   // alert('win');
-    //   console.log('win');
-    // } else {
-    //   console.log('lose');
-    //   // alert('keep fighting');
-    // }
-  }
-
-  // damage calc
-  function damage(boss, ally, atk) {
-    // console.log(being)
-    // console.log(atk)
-    boss.currentHP -= atk.dmg;
-    ally.currentMP -= atk.cost;
-    progress(abraxes, 'HP')
-    progress(ally, 'MP');
-    // console.log('abraxes hp', boss.currentHP)
-    // return boss.currentHP;
-  }
-
-  function bossDamage(boss, allyList) {
-    // console.log('damage');
-
-    // console.log(boss.attack[0]);
-    // allyList = [fire, water, air, earth];
-
-    allyList.forEach((ally) => {
-      ally.currentHP -= boss.attack[1].dmg;
-      boss.currentMP -= boss.attack[1].cost;
-      progress(ally, 'HP');
+    $('.atk-block').each((i, el) => {
+      $(el).text(allyList[i].name);
+      // console.log(allyList[i]);
     });
-    progress(abraxes, 'MP');
   }
 
   /*
   |--------------------------------------------------------------------------
-  | Progress
+  | Battle Display Functions
+  |--------------------------------------------------------------------------
+  */
+
+  function statusGen(ally) {
+    // gets HP/MP values from ally
+
+    // puts HP/MP count into counter boxes
+    $(ally.counterFindAllyHP()).text(ally.totalHP);
+    $(ally.counterFindAllyMP()).text(ally.totalMP);
+
+    // puts name into name slot
+    $(ally.nameFindAlly()).text(`${ally.name}`);
+  }
+
+  function statusGenBoss(boss) {
+    // gets HP/MP values from ally
+
+    // puts HP/MP count into counter boxes
+    $(boss.counterFindBossHP()).text(boss.totalHP);
+    $(boss.counterFindBossMP()).text(boss.totalMP);
+
+    // puts name into name slot
+    $(boss.nameFindBoss()).text(`${boss.name}`);
+    // l(boss.nameFindBoss())
+  }
+
+  /*
+  |--------------------------------------------------------------------------
+  | Attack Select Functions
+  |--------------------------------------------------------------------------
+  */
+
+  function clickAlly() {
+    $('#attack').show();
+
+    const id = $(this).attr('id');
+
+    // help from jason , get url for prototype.find
+    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find
+    // debugger;
+    const currentAlly = allyList.find(ally => ally.position === id);
+
+    if (atkList.length < 4 && atkList.indexOf(currentAlly.attack) === -1) {
+      atkList.push(currentAlly.attack);
+    }
+    // help from jason
+    // http://api.jquery.com/jquery.each
+    $('.atk-choice').each((i, el) => {
+      $(el).text(currentAlly.attack[i].name);
+    });
+
+    $(this).off('click');
+  }
+
+  function clickAttack() {
+    $('#attack').hide();
+
+    const atkId = `#${$(this).attr('id')}`;
+
+    let currentATK;
+
+    // for (atkArr of atkList) {
+    // let atkArr = atkList.find(arr => arr)
+    atkList.forEach((atkArr) => {
+      currentATK = atkArr.find(atk => atk.name === $(atkId).text());
+    });
+    // currentATK = atkArr.find(atk => atk.name === $(atkId).text());
+    // console.log('loop',currentATK);
+    // }
+    // console.log(currentATK);
+
+    if (attacks.length < 4 && attacks.indexOf(currentATK) === -1) {
+      attacks.push(currentATK);
+    }
+
+    if (attacks.length === 4) {
+      turnGo = true;
+    }
+  }
+
+  /*
+  |--------------------------------------------------------------------------
+  | Progress Function
   |--------------------------------------------------------------------------
   */
 
@@ -389,7 +273,7 @@ $(() => {
     // width of the total size of the div
     const start = being[`width${meter}`];
 
-    let width = (being[`current${meter}`] / being[`total${meter}`]) * start;
+    const width = (being[`current${meter}`] / being[`total${meter}`]) * start;
 
     // help from jason
     // object destructuring
@@ -413,16 +297,138 @@ $(() => {
     //   $(being[`meterFind${name}${meter}`]()).css('width', `${width}%`);
     // }
 
-    $(being[`meterFind${name}${meter}`]()).animate( {
-      width:`${width}%`}, {duration: 1000,easing: 'linear'} )
+    $(being[`meterFind${name}${meter}`]()).animate({ width: `${width}%` }, { duration: 1000, easing: 'linear' });
     // }
 
     // function for inputting the meter counter
-    // function countdown() {
-      // $(being.counterFindAllyHP()).text(fire.currentHP);
-      $(being[`counterFind${name}${meter}`]()).text(being[`current${meter}`]);
+    $(being[`counterFind${name}${meter}`]()).text(being[`current${meter}`]);
     // }
   }
+
+  /*
+  |--------------------------------------------------------------------------
+  | Damage Functions
+  |--------------------------------------------------------------------------
+  */
+
+  // damage calc
+  function damage(boss, ally, atk) {
+    boss.currentHP -= atk.dmg;
+    ally.currentMP -= atk.cost;
+    progress(abraxes, 'HP');
+    progress(ally, 'MP');
+    $('#message').text(atk.name).show();
+  }
+
+  function bossDamage(boss, allyList) {
+    allyList.forEach((ally) => {
+      ally.currentHP -= boss.attack[1].dmg;
+      boss.currentMP -= boss.attack[1].cost;
+      progress(ally, 'HP');
+      $('#message').text(boss.attack[1].name)
+    });
+    progress(abraxes, 'MP');
+  }
+
+  /*
+  |--------------------------------------------------------------------------
+  | Turn Loop Functions
+  |--------------------------------------------------------------------------
+  */
+
+  let turnCounter = 1;
+  $('#turn-number').text(turnCounter);
+
+  function move(order) {
+    // order of players
+    damage(abraxes, allyList[order], attacks[order]);
+    //   progress(abraxes, 'HP');
+    //   // $('body').trigger('update');
+    // }, 4000);
+    // moving progress inside setTimeout makes it not work unless the multiplier from the
+    // setTimeout time is removed, which makes the progress bar stutter as it goes down.
+    // outside, it only works once. but then all the math for the HP deduction is done at once
+  }
+
+  function turn() {
+    console.log('turn:', turnCounter);
+    // idea from https://scottiestech.info/2014/07/01/javascript-fun-looping-with-a-delay/
+    (function atkLoop(i) {
+      let n = i;
+      setTimeout(() => {
+        move(n);
+        n += 1;
+        if (n < 4) {
+          atkLoop(n);
+        }
+      }, 3000);
+    }(0));
+
+    setTimeout(() => {
+      bossDamage(abraxes, allyList);
+    }, 15000);
+
+    setTimeout(() => {
+      if (abraxes.currentHP > 0) {
+        console.log('fight');
+        $('#turn-number').text(turnCounter);
+        atkList = [];
+        attacks = [];
+        // turn();
+      } else {
+        console.log('win');
+        clearInterval(checkTurn);
+      }
+    }, 18000);
+    $('#message').hide();
+    turnCounter += 1;
+  }
+
+  const checkStatus = setInterval(() => {
+    if (allyList.length === 4 && nameList.length === 4) {
+      allyList.forEach((ally) => { statusGen(ally); });
+      $('#select').hide();
+      $('#battle').show();
+    }
+  }, 1000);
+
+  const checkTurn = setInterval(() => {
+    // how to select which character to get moves from
+    $('.atk-block').on('click', clickAlly);
+
+    // how to select which attack to use
+    $('.atk-choice').on('click', clickAttack);
+    // l(turnGo);
+
+    if (turnGo) {
+      clearInterval(checkStatus);
+
+      turn();
+      turnGo = false;
+      // clearInterval(checkTurn);
+    }
+  }, 5000);
+
+  /*
+  |--------------------------------------------------------------------------
+  | Event Listeners
+  |--------------------------------------------------------------------------
+  */
+
+  // start adventure
+  $('.button').on('click', advChoice);
+
+  // select allies to use
+  $('.ally-select-square').on('click', charaSelect);
+
+  // // how to select which character to get moves from
+  // $('.atk-block').on('click', clickAlly);
+
+  // // how to select which attack to use
+  // $('.atk-choice').on('click', clickAttack);
+
+  // get names for allies
+  $('#submit-button').on('click', grabNames);
 
 // end
 });
@@ -434,10 +440,9 @@ $(() => {
 */
 
 // pseudo code - 1hr
-// basic skeleton framing - 3.75 hr
-// more styling - 1 hr
-// advanced styling - 1.5 hr
+// basic skeleton framing - 4 hr
+// advanced styling - 4.25 hr
 // adding jquery to eslint - 1 hr
-// adding more jquery functionality -16.5 hr
+// adding more jquery functionality -19.5 hr
 // updating readme - .5 hr
-// jquery syntax - .5 hr
+// jquery syntax - 1 hr
