@@ -8,6 +8,7 @@
 	margin:0;
 	padding:0;
 	color:white;
+	font-family: 'Alice', serif;
 	/*border: 1px solid black;*/
 }
 
@@ -57,6 +58,7 @@
 	width:100%;
 	background-color: black;
 	color:white;
+	display: none;
 }
 
 #enemy-select, #ally-select{
@@ -76,12 +78,38 @@
 	width:19%;
 	background-color: gray;
 	height:48%;
+	display:flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 20px;
+	position: relative;
+}
+
+.ally-select-square:hover::after, .enemy-select-square:hover::after{
+	content:"";
+	background:rgba(0,0,0,.4);
+	width:100%;
+	height:100%;
+	position: absolute;
+}
+
+.ally-select-square:hover::before, .enemy-select-square:hover::before{
+	width:100%;
+	text-align: center;
+	background:rgba(0,0,0,.6);
+	padding:5% 0;
+	z-index:10;
 }
 
 .enemy-select-square{
 	width:30%;
 	height:95%;
+	display:flex;
+	justify-content: center;
+	align-items: center;
 	background-color:gray;
+	font-size: 20px;
+	position: relative;
 }
 
 /*
@@ -140,10 +168,18 @@ input, #submit-button{
 	background-color:red;
 }
 
+.fire:hover::before{
+	content:"Fire";
+}
+
 .water{
 	background-image: url("https://sciencenotes.org/wp-content/uploads/2014/06/Alchemy_water.png");
 	background-color:blue;
 	background-size:100% 100%;
+}
+
+.water:hover::before{
+	content:"Water";
 }
 
 .air{
@@ -152,10 +188,18 @@ input, #submit-button{
 	background-size:100% 100%;
 }
 
+.air:hover::before{
+	content:"Air";
+}
+
 .earth{
 	background-image: url("https://sciencenotes.org/wp-content/uploads/2014/06/Alchemy_Earth.png");
 	background-color:brown;
 	background-size:100% 100%;
+}
+
+.earth:hover::before{
+	content:"Earth";
 }
 
 .ice{
@@ -164,10 +208,18 @@ input, #submit-button{
 	background-size:100% 100%;
 }
 
+.ice:hover::before{
+	content:"Ice";
+}
+
 .thunder{
 	background-image: url("https://sciencenotes.org/wp-content/uploads/2014/06/Alchemy_fire.png");
 	background-color:yellow;
 	background-size:100% 100%;
+}
+
+.thunder:hover::before{
+	content:"Thunder";
 }
 
 .wood{
@@ -176,10 +228,18 @@ input, #submit-button{
 	background-size:100% 100%;
 }
 
+.wood:hover::before{
+	content:"Wood";
+}
+
 .metal{
 	background-image: url("https://sciencenotes.org/wp-content/uploads/2014/06/Alchemy_fire.png");
 	background-color:#222;
 	background-size:100% 100%;
+}
+
+.metal:hover::before{
+	content:"Metal";
 }
 
 .light{
@@ -188,16 +248,56 @@ input, #submit-button{
 	background-size:100% 100%;
 }
 
+.light:hover::before{
+	content:"Light";
+}
+
 .dark{
-	background-image: url("https://sciencenotes.org/wp-content/uploads/2014/06/Alchemy_fire.png");
+	background-image: url("img/moon.png");
 	background-color:black;
 	background-size:100% 100%;
 }
 
-/*.fire::before{
-	content:"";
-	background-image: url("https://sciencenotes.org/wp-content/uploads/2014/06/Alchemy_fire.png");
-}*/
+.dark:hover::before{
+	content:"Dark";
+	color:black;
+	background-color: rgba(255,255,255,.6);
+}
+
+.dark:hover::after{
+	background: rgba(255,255,255,.2);
+}
+
+/*
+|--------------------------------------------------------------------------
+| Bosses
+|--------------------------------------------------------------------------
+*/
+
+.abraxes-symbol{
+	background-image: url("http://78.media.tumblr.com/bf161b60e0f21b2fa81f7c4ddd19ad95/tumblr_mjgommKO8N1qevfrto1_500.png"), linear-gradient(to right, #dd1818, #333333);
+	background-size:100% 100%;
+}
+
+.abraxes-symbol:hover::before{
+	content:"Abraxes";
+}
+
+.goetia-symbol{
+	background-image: /*url(),*/ linear-gradient(to right, #0f0c29, #302b63, #24243e);
+}
+
+.goetia-symbol:hover::before{
+	content:"Goetia";
+}
+
+.demiurge-symbol{
+	background-image: /*url(),*/ linear-gradient(to right, #f0f2f0, #000c40);
+}
+
+.demiurge-symbol:hover::before{
+	content:"Demiurge";
+}
 
 /*
 |--------------------------------------------------------------------------
@@ -206,13 +306,14 @@ input, #submit-button{
 */
 
 #battle{
-	position:absolute;
+	/*position:absolute;*/
 	width: 100%;
+	display:none;
 }
 
 #meters{
 	height:10vh;
-	background-color: red;
+	background-color: black;
 	display: flex;
 	justify-content: space-between;
 }
@@ -240,14 +341,16 @@ input, #submit-button{
 
 #enemy-meter{
 	width:60%;
-	background: gray;
+	/*background: gray;*/
 }
 
 .HP-meter-enemy, .MP-meter-enemy{
-	height:35%;
+	height:25%;
 }
+
 .name-boss{
-	height:30%;
+	height:50%;
+	font-size:20px;
 }
 
 .HP-meter-enemy{
@@ -266,7 +369,7 @@ input, #submit-button{
 
 .boss-counter{
 	width:30%;
-	background-color: blue;
+	/*background-color: blue;*/
 	text-align: center;
 }
 

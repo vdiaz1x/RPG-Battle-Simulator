@@ -243,28 +243,6 @@ $(() => {
     $(this).off('click');
   }
 
-  /*
-  |--------------------------------------------------------------------------
-  | Event Listeners
-  |--------------------------------------------------------------------------
-  */
-
-  $('.ally-select-square').on('click', charaSelect);
-
-  // how to select which character to get moves from
-  $('.atk-block').on('click', clickAlly);
-
-  // how to select which attack to use
-  $('.atk-choice').on('click', clickAttack);
-
-  // test
-  // $('body').on('update', function(event) {
-  //    // alert('hi');
-  //    progress(abraxes, 'HP');
-  // });
-
-  $('#submit-button').on('click', grabNames);
-
   function grabNames() {
     const first = $('#primary').val();
     const second = $('#secondary').val();
@@ -280,6 +258,31 @@ $(() => {
       })
     }
   }
+
+  function advChoice() {
+    if ($(this).attr("id") === "yes"){
+      $('#select').show();
+      $('#landing').hide();
+    }
+  }
+
+  /*
+  |--------------------------------------------------------------------------
+  | Event Listeners
+  |--------------------------------------------------------------------------
+  */
+
+  $('.button').on('click', advChoice);
+
+  $('.ally-select-square').on('click', charaSelect);
+
+  // how to select which character to get moves from
+  $('.atk-block').on('click', clickAlly);
+
+  // how to select which attack to use
+  $('.atk-choice').on('click', clickAttack);
+
+  $('#submit-button').on('click', grabNames);
 
   /*
   |--------------------------------------------------------------------------
@@ -300,27 +303,23 @@ $(() => {
 
   let checkStatus = setInterval(function (){
     if(allyList.length === 4 && nameList.length === 4) {
-      allyList.forEach((ally) => statusGen(ally))
+      allyList.forEach((ally) => statusGen(ally));
+      $("#select").hide()
+      $("#battle").show();
     }
   },1000);
 
   function turn() {
-    for (let i = 0; i < 4; i += 1) {
-      // move(i);
-    }
-
-    //test
-    // debugger;
     // idea from https://scottiestech.info/2014/07/01/javascript-fun-looping-with-a-delay/
       (function atkLoop (i) {
         console.log(i);
         setTimeout(function () {
           move(i);
-          if (--i) {          // If i > 0, keep going
+          if (++i && i<4) {          // If i > 0, keep going
             atkLoop(i);       // Call the loop again, and pass it the current value of i
           }
         }, 3000);
-      })(3);
+      })(0);
       setTimeout(function(){
         bossDamage(abraxes, allyList);
       },15000);
@@ -437,8 +436,8 @@ $(() => {
 // pseudo code - 1hr
 // basic skeleton framing - 3.75 hr
 // more styling - 1 hr
-// advanced styling - //
+// advanced styling - 1.5 hr
 // adding jquery to eslint - 1 hr
-// adding more jquery functionality -15 hr
+// adding more jquery functionality -16.5 hr
 // updating readme - .5 hr
 // jquery syntax - .5 hr
