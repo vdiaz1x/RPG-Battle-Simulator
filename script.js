@@ -77,6 +77,12 @@ $(() => {
   |--------------------------------------------------------------------------
   */
 
+  // putting allies into list for searching
+  const charaList = [fire, water, air, earth, ice, thunder, wood, metal, light, dark];
+
+  // creating bosses
+  const abraxes = new Boss('Abraxes', 'darkness', abraxesATK, 'abraxes');
+
   // hard coded images for allies and boss
   const allySpace1 = $('#ally-avatar1 .avatar-img');
   const allySpace2 = $('#ally-avatar2 .avatar-img');
@@ -91,6 +97,9 @@ $(() => {
 
   imgGen(fire, water, air, earth, abraxes);
 
+  // empty list to insert allies chosen
+  let allyList = [];
+
   // empty lists for use later to enter names, attack lists, and actual attacks chosen
   let nameList = [];
   let atkList = [];
@@ -104,8 +113,6 @@ $(() => {
   | Battle Functions
   |--------------------------------------------------------------------------
   */
-
-  
 
   // generating images on battle screen
   function imgGen(ally1, ally2, ally3, ally4, boss) {
@@ -148,8 +155,8 @@ $(() => {
     }
 
     allyList.forEach((ally, i) => {
-      newAlly.position = `block${i+1}`;
-      newAlly.id = `#status-ally${i+1}`;
+      newAlly.position = `block${i + 1}`;
+      newAlly.id = `#status-ally${i + 1}`;
     });
   }
 
@@ -172,7 +179,8 @@ $(() => {
       });
     }
 
-    // when the names are chosen, the blocks to select the attack names are filled with the ally name
+    // when the names are chosen, the blocks to select the attack names
+    // are filled with the ally name
     $('.atk-block').each((i, el) => {
       $(el).text(allyList[i].name);
     });
@@ -311,7 +319,7 @@ $(() => {
     $(being[`meterFind${name}${meter}`]()).animate({ width: `${width}%` }, { duration: 1000, easing: 'linear' });
 
     // if the number for the meter value is less than zero, put it at zero
-    if(being[`current${meter}`] < 0) {
+    if (being[`current${meter}`] < 0) {
       being[`current${meter}`] = 0;
     }
 
@@ -327,7 +335,7 @@ $(() => {
 
   // function for damage calc for allies
   function damage(boss, ally, atk) {
-    //subtract the attack damage from the boss current HP
+    // subtract the attack damage from the boss current HP
     boss.currentHP -= atk.dmg;
     // subtract the cost of the attack from the ally current MP
     ally.currentMP -= atk.cost;
@@ -337,19 +345,22 @@ $(() => {
     progress(ally, 'MP');
 
     // show the attack name
-    $('#message').text(atk.name).show();
+    $('#message-box').show();
+    $('#attack-name').text(ally.name);
+    $('#message').text(atk.name);
   }
 
   // function for damage calc for bosses
-  function bossDamage(boss, allyList) {
+  function bossDamage(boss, list) {
     // for each ally, subtract the damage of the attack from the ally current HP
-    allyList.forEach((ally) => {
+    list.forEach((ally) => {
       // does the math for ally HP and boss MP
       ally.currentHP -= boss.attack[1].dmg;
       boss.currentMP -= boss.attack[1].cost;
 
       // animate the current ally HP
       progress(ally, 'HP');
+      $('#attack-name').text(boss.name);
       $('#message').text(boss.attack[1].name);
     });
 
@@ -370,7 +381,6 @@ $(() => {
   }
 
   function turn() {
-    console.log('turn:', turnCounter);
     // idea from https://scottiestech.info/2014/07/01/javascript-fun-looping-with-a-delay/
     // making a function that calls itself so that the moves can be called step by step rather
     // than having consecutive function calls simultaneously
@@ -380,9 +390,8 @@ $(() => {
       // defining variable to not use the argument itself
       let n = i;
 
-      // one use function
-      let allyMove = setTimeout(() => {
-
+      // immediately invoked function expression
+      const allyMove = setTimeout(() => {
         // calling move function for one move
         move(n);
 
@@ -393,7 +402,7 @@ $(() => {
         winCon();
 
         // if win con is true, make counter 4 to prematurely end the loop
-        if(winCon()) {
+        if (winCon()) {
           n = 4;
         }
 
@@ -406,14 +415,14 @@ $(() => {
     }(0));
 
     // set timeout for the boss attack
-    let bossMove = setTimeout(() => {
+    const bossMove = setTimeout(() => {
       // if the boss has current HP > , attack
       if (abraxes.currentHP > 0) {
         // boss deals damage
         bossDamage(abraxes, allyList);
         // checking if the first ally has zero current HP
         // implied that all allies have zero HP
-        if(allyList[0].currentHP === 0){
+        if (allyList[0].currentHP === 0) {
           // show battle message message
           $('message').show();
         }
@@ -422,10 +431,9 @@ $(() => {
     }, 10000);
 
     // set timeout to check after turn conditions
-    let turnRestart = setTimeout(() => {
+    const turnRestart = setTimeout(() => {
       // if the boss has > 0 current HP, continue fighting
       if (abraxes.currentHP > 0) {
-
         // put the turn counter on screen
         $('#turn-number').text(turnCounter);
 
@@ -451,7 +459,7 @@ $(() => {
   // function to check whether turn should run
   const checkTurn = () => {
     setInterval(() => {
-      console.log(turnGo);
+      // console.log(turnGo);
       // if(!turnGo){
       //   // how to select which character to get moves from
       //   $('.atk-block').on('click', clickAlly);
@@ -476,22 +484,78 @@ $(() => {
   function winCon() {
     // if the boss' current HP is zero, then reset turn values
     if (abraxes.currentHP <= 0) {
+      // resets all arrays that get used
       atkList = [];
       attacks = [];
 
+      // resets all running intervals
       clearInterval(checkTurn);
       clearInterval(allyMove);
       clearInterval(bossMove);
       clearInterval(turnRestart);
 
+      // hide battle message and show end message
       $('#battle-end').show();
       $('#message').hide();
 
-      // 
       return true;
     }
     return false;
   }
+
+  /*
+  |--------------------------------------------------------------------------
+  | Reset
+  |--------------------------------------------------------------------------
+  */
+
+  // function to reset game
+  function reset() {
+    // shows landing page and hides everything else
+    $('#battle-end').hide();
+    $('#landing').show();
+    $('#battle').hide();
+
+    // unselects allies selected in chara select page
+    $('.ally-select-square').removeClass('selected');
+    // console.log($('.selected
+
+    // removes all text from inputs
+    $('input').val('');
+    // // generating HP/MP bars for allies/bosses
+
+    // resets HP and MP values for allies
+    allyList.forEach((ally, i) => {
+      ally.currentHP = allyList[i].totalHP;
+      ally.currentMP = allyList[i].totalMP;
+      // console.log(ally.meterFindAllyHP());
+      $(ally.meterFindAllyHP()).css('width', `${ally.widthHP}%`);
+      $(ally.meterFindAllyMP()).css('width', `${ally.widthMP}%`);
+    });
+
+    // resets HP and MP values for boss
+    abraxes.currentHP = abraxes.totalHP;
+    abraxes.currentMP = abraxes.totalMP;
+    $(abraxes.meterFindBossHP()).css('width', `${abraxes.widthHP}%`);
+    $(abraxes.meterFindBossMP()).css('width', `${abraxes.widthHP}%`);
+
+    // resets all lists used
+    nameList = [];
+    atkList = [];
+    attacks = [];
+    allyList = [];
+
+    // sets turn starter to false
+    turnGo = false;
+
+    // sets turn counter to zero
+    turnCounter = 0;
+
+    // checkTurn();
+
+    //
+  }
+
   /*
   |--------------------------------------------------------------------------
   | Event Listeners
@@ -518,52 +582,6 @@ $(() => {
 
 // end
 });
-
-/*
-|--------------------------------------------------------------------------
-| Reset
-|--------------------------------------------------------------------------
-*/
-
-function reset() {
-  $('#battle-end').hide();
-  $('#landing').show();
-  $('#battle').hide();
-
-  $('.ally-select-square').removeClass('selected');
-  // console.log($('.selected
-
-  $('input').val('');
-  // // generating HP/MP bars for allies/bosses
-
-  allyList.forEach((ally, i) => {
-    ally.currentHP = allyList[i].totalHP;
-    ally.currentMP = allyList[i].totalMP;
-    // console.log(ally.meterFindAllyHP());
-    $(ally.meterFindAllyHP()).css('width', `${ally.widthHP}%`);
-    $(ally.meterFindAllyMP()).css('width', `${ally.widthMP}%`);
-  });
-
-  abraxes.currentHP = abraxes.totalHP;
-  abraxes.currentMP = abraxes.totalMP;
-  $(abraxes.meterFindBossHP()).css('width', `${abraxes.widthHP}%`);
-  $(abraxes.meterFindBossMP()).css('width', `${abraxes.widthHP}%`);
-
-  // attack select
-  // nameList = [];
-  atkList = [];
-  attacks = [];
-  allyList = [];
-
-  turnGo = false;
-  turnCounter = 0;
-
-  // checkTurn();
-
-  //
-}
-
-
 
 /*
 |--------------------------------------------------------------------------

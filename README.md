@@ -162,6 +162,8 @@ After a win or loss, you will have the option to go back and select a new enemy 
 | PostMVP | L | 10hrs| 00hrs | 00hrs |
 | Super Total |  | 50hrs| 00hrs | 00hrs |
 
+My time estimates were way off. Also, I underestimated the scope and difficulty of this project.
+
 ## Helper Functions
 Helper functions should be generic enought that they can be reused in other applications. Use this section to document all helper functions that fall into this category.
 
@@ -170,23 +172,69 @@ Helper functions should be generic enought that they can be reused in other appl
 | Capitalize | This will capitalize the first letter in a string | 
 
 ## Additional Libraries
- Use this section to list all supporting libraries and thier role in the project. 
+ JQuery - for DOM manipulation and other useful functions
 
 ## Code Snippet
 
-Use this section to include a brief code snippet of functionality that you are proud of an a brief description.  
+```javascript
+// function to loop attacks (i is entered as zero)
+// immediately invoked function expression
+(function atkLoop(i) {
+  // defining variable to not use the argument itself
+  let n = i;
+
+  const allyMove = setTimeout(() => {
+    // calling move function for one move
+    move(n);
+
+    // incrementing; this number is used to call the moves for the other allies
+    n += 1;
+
+    // win condition
+    winCon();
+
+    // if win con is true, make counter 4 to prematurely end the loop
+    if (winCon()) {
+      n = 4;
+    }
+
+    // if the counter is less than 4, the loop continues with the next move
+    if (n < 4) {
+      atkLoop(n);
+    }
+    // the initial value for i is 0, the set timeout is every 2 seconds to space out the attacks
+  }, 2000);
+}(0));
+```
+
+I found the basic structure of this immediately invoking function expression that executes a setTimeout one after the other, rather than simultaneously. I had to heavily modify it for my use, but it still served as a solid base to make the game loop for the ally attacks. Basically, it has a parameter i, which you immediately pass an argument of zero at the end. Using a counter equal to the initial input, you use it inside a setTimeout where the move function is called with the argument of the counter. inside the setTimeout, increment the counter. The win con function is checked; if the win con is true, then the counter is set to a condition to end the loop. Otherwise, if the counter is less than 4, the function is called again. The way the function is structured, the next function call won't activate until the first function calll is completed, giving the illusion of stacking attacks in order.
 
 ## jQuery Discoveries
- Use this section to list some, but not all, of the jQuery methods and\or functionality discovered while working on this project.
+
+.each - loops through DOM elements grabbed by JQuery
+.off - removes event handlers made through .on
 
 ## Change Log
- Use this section to document what changes were made and the reasoning behind those changes.  
+
+I had to scale back the project a bit. I could not really implement the postMVP, although the main project is more or less done.
 
 ## Issues and Resolutions
- Use this section to list of all major issues encountered and their resolution.
+
+### Major Issue - Game Loop
+Unlike the high-low game, I could not pause the game via user input- the attacks had to be executed one after the other without making it simultaneous. Unlike the tic tac toe, the loop was not a simple player 1/player 2 situation. I found a way to do the loop with a recursive self invoking function.
+
+### Major Issue - Creating Characters
+Instead of creating objects for all of my characters, I made classes. I realized that the attacks also warranted their own class as well. However, whenever I had to change my code to make it more extendable, I had to edit the class definition. Using classes did make it easier to do any editing on my characters, though.
 
 #### SAMPLE.....
-**ERROR**: app.js:34 Uncaught SyntaxError: Unexpected identifier                                
-**RESOLUTION**: Missing comma after first object in sources {} object
+**ERROR**: eslint regenerator-loop                             
+**RESOLUTION**: Instead of using for...of loops for arrays, I used forEach
+
+**ERROR**: eslint object deconstructing                     
+**RESOLUTION**: I had to switch the way I got the class name for my objects (minor semantic detail)
+
+**ERROR**: eslint function used before it was declared            
+**RESOLUTION**: I moved function declarations higher up
 
 ## References
+Final Fantasy for basic layout

@@ -4,8 +4,7 @@
 |--------------------------------------------------------------------------
 */
 
-// attack objects to put into classes
-
+// creating the Attack class to se for making attacks
 class Attack {
   constructor(name, dmg, cost) {
     this.name = name;
@@ -99,7 +98,7 @@ const abraxesATK = [
 |--------------------------------------------------------------------------
 */
 
-// one class for all ally/bosses with relevant stats
+// one class for all allies/bosses with relevant stats
 class Being {
   constructor(element, atk, img) {
     this.name;
@@ -159,12 +158,6 @@ const metal = new Ally('metal', metalATK, 'ally8');
 const light = new Ally('light', lightATK, 'ally9');
 const dark = new Ally('dark', darkATK, 'ally10');
 
-// putting allies into list for searching
-const charaList = [fire, water, air, earth, ice, thunder, wood, metal, light, dark];
-
-// empty list to insert allies chosen
-let allyList = [];
-
 // extends being into boss
 class Boss extends Being {
   constructor(name, element, atk, img) {
@@ -198,6 +191,3 @@ class Boss extends Being {
     return `${this.id} ${this.nameSlot}`;
   }
 }
-
-// creating bosses
-const abraxes = new Boss('Abraxes', 'darkness', abraxesATK, 'abraxes');
