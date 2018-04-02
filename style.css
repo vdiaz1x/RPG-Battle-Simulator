@@ -357,6 +357,24 @@ input, #submit-button{
 	/*border: 1px solid white;*/
 }
 
+#battle-end{
+	background-color:black;
+	width:50%;
+	margin: 0 auto;
+	height: 30%;
+	z-index:100;
+	position: absolute;
+	top:35%;
+	left:25%;
+	text-align:center;
+	display:none;
+}
+
+#reset-button{
+	padding:10px;
+	background-color: gray;
+}
+
 #status{
 	height:20vh;
 	background-color: black;
@@ -470,7 +488,7 @@ input, #submit-button{
 	height:45%;
 }
 
-.ball{
+.avatar-img{
 	width:60%;
 	height:100%;
 	/*background-size:100% 100%;*/
@@ -481,7 +499,7 @@ input, #submit-button{
 	background-size: 100% 100%;
 }
 
-.ally1, .ally2{
+.ally1{
 	background:url("https://cdn.shopify.com/s/files/1/0862/4240/products/1_fff69c51-5a4d-409e-b644-60268ee1570f.gif?v=1441092369");
 	background-size:100% 100%;
 }

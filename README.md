@@ -11,16 +11,17 @@ A battle sequence in the style of old school RPGs (Final Fantasy/turn-based) wit
 |Day 2: Wed| Project Approval | Yes |
 | | Pseudocode | Yes |
 | | Basic Structure (Skeleton)| Yes |
-|Day 3: Thur| Basic Structure/Style (Visual Design)| |
-| | Basic Functionality (Clicks)| |
-| | Landing Page | |
-|Day 4: Fri| Battle Logic | |
-| | Win/Lose Logic | |
-|Day 5: Sat| Reset Logic | |
+|Day 3: Thur| Basic Structure/Style (Visual Design)| Yes |
+| | Basic Functionality (Clicks)| Yes|
+| | Landing Page | Yes |
+|Day 4: Fri| Battle Logic | Yes |
+| | Win/Lose Logic | Yes |
+|Day 5: Sat| Reset Logic | Yes |
 |Day 6: Sun| Bugs | |
 | | Stylying | |
 | | PostMVP | |
-|Day 7: Mon| Project Presentations | |
+|Day 7: Mon| Finish Bugs| |
+|Day 8: Tues| Project Presentations | |
 
 
 ## Project Description
@@ -125,7 +126,7 @@ After a win or loss, you will have the option to go back and select a new enemy 
 - Basic Attack Animation/Notification
 - Win Con Based on Boss HP <= 0
 - Lose Con Based on Allies' HP <= 0
-- Return to Boss Select Screen
+- Return to Ally Select Screen
 
 ## POST MVP
 
@@ -141,11 +142,7 @@ After a win or loss, you will have the option to go back and select a new enemy 
 - Dialogue in Battle
 - Change Boss Behavior Based on HP
 
-## Functional Components
-
-Based on the initial logic defined in the previous game phases section try and breakdown the logic further into functional components, and by that we mean functions.  Does your logic indicate that code could be encapsulated for the purpose of reusablility.  Once a function has been defined it can then be incorporated into a class as a method. 
-
-Time frames are also key in the development cycle.  You have limited time to code all phases of the game.  Your estimates can then be used to evalute game possibilities based on time needed and the actual time you have before game must be submitted. 
+## Functional Components 
 
 | Component | Priority | Estimated Time | Time Invetsted | Actual Time |
 | --- | :---: |  :---: | :---: | :---: |
@@ -191,3 +188,5 @@ Use this section to include a brief code snippet of functionality that you are p
 #### SAMPLE.....
 **ERROR**: app.js:34 Uncaught SyntaxError: Unexpected identifier                                
 **RESOLUTION**: Missing comma after first object in sources {} object
+
+## References
