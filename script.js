@@ -96,8 +96,6 @@ $(() => {
 
   // generating HP/MP bars for allies/bosses
 
-  statusGenBoss(abraxes);
-
   // attack select
   let nameList = [];
   let atkList = [];
@@ -123,35 +121,23 @@ $(() => {
 
     const newAlly = charaList.find(ally => ally.element === dataAlly);
 
-    switch (allyList.length) {
-      case 0:
-        newAlly.position = 'block1';
-        newAlly.id = '#status-ally1';
-        // newAlly.
-        break;
-      case 1:
-        newAlly.position = 'block2';
-        newAlly.id = '#status-ally2';
-        break;
-      case 2:
-        newAlly.position = 'block3';
-        newAlly.id = '#status-ally3';
-        break;
-      case 3:
-        newAlly.position = 'block4';
-        newAlly.id = '#status-ally4';
-        break;
-      default:
-        break;
-    }
-
     if (allyList.length < 4 && allyList.indexOf(newAlly) === -1) {
       allyList.push(newAlly);
+      $(this).addClass('selected');
     }
 
-    $(this).addClass('selected');
+    allyList.forEach((ally, i) => {
+      newAlly.position = `block${i+1}`;
+      newAlly.id = `#status-ally${i+1}`;
+    });
 
-    $(this).off('click');
+    console.log(allyList)
+
+    // $(this).addClass('selected');
+
+    // if($(this).is('.selected')) {
+    //   $(this).off('click');
+    // }
   }
 
   function grabNames() {
@@ -161,7 +147,7 @@ $(() => {
     const fourth = $('#quadnary').val();
 
     nameList = [first, second, third, fourth];
-    // l(names)
+    console.log(nameList)
 
     if (allyList.length === 4) {
       allyList.forEach((ally, i) => {
@@ -171,8 +157,18 @@ $(() => {
 
     $('.atk-block').each((i, el) => {
       $(el).text(allyList[i].name);
-      // console.log(allyList[i]);
     });
+
+    if (allyList.length === 4 && nameList.indexOf('') === -1) {
+      allyList.forEach((ally) => { statusGen(ally); });
+      statusGenBoss(abraxes);
+
+      $('#select').hide();
+      $('#battle').show();
+
+      // console.log(nameList.indexOf(first))
+      // console.log(typeof(nameList[0]))
+    }
   }
 
   /*
@@ -314,6 +310,8 @@ $(() => {
   // damage calc
   function damage(boss, ally, atk) {
     boss.currentHP -= atk.dmg;
+
+    console.log(atk);
     ally.currentMP -= atk.cost;
     progress(abraxes, 'HP');
     progress(ally, 'MP');
@@ -358,6 +356,11 @@ $(() => {
       setTimeout(() => {
         move(n);
         n += 1;
+        if(abraxes.currentHP < 0){
+          console.log('WINNER');
+          atkList = [];
+          attacks = [];
+        }
         if (n < 4) {
           atkLoop(n);
         }
@@ -372,27 +375,21 @@ $(() => {
       if (abraxes.currentHP > 0) {
         console.log('fight');
         $('#turn-number').text(turnCounter);
+        $('#message').hide();
+        turnCounter += 1;
         atkList = [];
         attacks = [];
         // turn();
       } else {
         console.log('win');
         clearInterval(checkTurn);
+        reset();
       }
     }, 18000);
-    $('#message').hide();
-    turnCounter += 1;
   }
 
-  const checkStatus = setInterval(() => {
-    if (allyList.length === 4 && nameList.length === 4) {
-      allyList.forEach((ally) => { statusGen(ally); });
-      $('#select').hide();
-      $('#battle').show();
-    }
-  }, 1000);
-
-  const checkTurn = setInterval(() => {
+  const checkTurn = function(){
+    setInterval(() => {
     // how to select which character to get moves from
     $('.atk-block').on('click', clickAlly);
 
@@ -401,13 +398,15 @@ $(() => {
     // l(turnGo);
 
     if (turnGo) {
-      clearInterval(checkStatus);
+      // clearInterval(checkStatus);
 
       turn();
       turnGo = false;
-      // clearInterval(checkTurn);
     }
-  }, 5000);
+  }, 5000)
+  };
+
+  checkTurn();
 
   /*
   |--------------------------------------------------------------------------
@@ -435,6 +434,53 @@ $(() => {
 
 /*
 |--------------------------------------------------------------------------
+| Reset
+|--------------------------------------------------------------------------
+*/
+
+function reset() {
+  // turnGo = false;
+  $('#landing').show();
+  $('#battle').hide();
+
+  $('.ally-select-square').removeClass('selected');
+  // console.log($('.selected
+
+  $("input").val('');
+  // clicks
+
+  // imgGen(fire, water, air, earth, abraxes);
+
+  // // generating HP/MP bars for allies/bosses
+
+  allyList.forEach((ally, i) => {
+    allyList[i].currentHP = allyList[i].totalHP;
+    allyList[i].currentMP = allyList[i].totalMP;
+  });
+
+  abraxes.currentHP = abraxes.totalHP;
+  abraxes.currentMP = abraxes.totalMP;
+
+  // statusGenBoss(abraxes);
+
+  // console.log(abraxes.currentHP);
+
+  // attack select
+  // nameList = [];
+  atkList = [];
+  attacks = [];
+  allyList = [];
+
+  turnGo = false;
+  turnCounter = 0;
+
+  // checkTurn();
+
+  //
+}
+
+/*
+|--------------------------------------------------------------------------
 | Time Log
 |--------------------------------------------------------------------------
 */
@@ -443,6 +489,6 @@ $(() => {
 // basic skeleton framing - 4 hr
 // advanced styling - 4.25 hr
 // adding jquery to eslint - 1 hr
-// adding more jquery functionality -19.5 hr
+// adding more jquery functionality -20.5 hr
 // updating readme - .5 hr
 // jquery syntax - 1 hr

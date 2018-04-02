@@ -163,7 +163,7 @@ const dark = new Ally('dark', darkATK, 'ally10');
 const charaList = [fire, water, air, earth, ice, thunder, wood, metal, light, dark];
 
 // empty list to insert allies chosen
-const allyList = [];
+let allyList = [];
 
 // extends being into boss
 class Boss extends Being {
