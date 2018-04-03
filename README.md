@@ -20,7 +20,7 @@ A battle sequence in the style of old school RPGs (Final Fantasy/turn-based) wit
 |Day 6: Sun| Bugs | |
 | | Stylying | |
 | | PostMVP | |
-|Day 7: Mon| Finish Bugs| |
+|Day 7: Mon| Finish Bugs| Yes |
 |Day 8: Tues| Project Presentations | |
 
 

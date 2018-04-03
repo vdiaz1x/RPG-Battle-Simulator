@@ -375,10 +375,23 @@ $(() => {
       progress(ally, 'HP');
       $('#attack-name').text(boss.name);
       $('#message').text(boss.attack[1].name);
+      damageCounter(boss.attack[1], '#dmg-counter1');
+      damageCounter(boss.attack[1], '#dmg-counter2');
+      damageCounter(boss.attack[1], '#dmg-counter3');
+      damageCounter(boss.attack[1], '#dmg-counter4');
     });
 
     // animate the current boss MP
     progress(abraxes, 'MP');
+  }
+
+  function damageCounter(atk, slot) {
+    $(slot).hide();
+    $(slot).show();
+    $(slot).text(atk.dmg);
+    setTimeout(()=>{
+      $(slot).fadeOut(1600);
+    });
   }
 
   /*
@@ -391,6 +404,7 @@ $(() => {
   function move(order) {
     // damage calc for allies
     damage(abraxes, allyList[order], attacks[order]);
+    damageCounter(attacks[order], '#dmg-counter-boss');
   }
 
   function turn() {
@@ -454,8 +468,7 @@ $(() => {
 
         // reset turn metrics
         turnGo = false;
-        turnCounter += 1;
-        
+        turnCounter += 1;    
         // put the turn counter on screen
         $('#turn-number').text(turnCounter);
         atkList = [];
