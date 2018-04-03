@@ -220,12 +220,15 @@ I had to scale back the project a bit. I could not really implement the postMVP,
 ## Issues and Resolutions
 
 ### Major Issue - Game Loop
+
 Unlike the high-low game, I could not pause the game via user input- the attacks had to be executed one after the other without making it simultaneous. Unlike the tic tac toe, the loop was not a simple player 1/player 2 situation. I found a way to do the loop with a recursive self invoking function.
 
 ### Major Issue - Creating Characters
+
 Instead of creating objects for all of my characters, I made classes. I realized that the attacks also warranted their own class as well. However, whenever I had to change my code to make it more extendable, I had to edit the class definition. Using classes did make it easier to do any editing on my characters, though.
 
-#### SAMPLE.....
+#### Error/Resolution
+
 **ERROR**: eslint regenerator-runtime, prefer iteration to loops                             
 **RESOLUTION**: Instead of using for...of loops for arrays, I used forEach
 
@@ -236,5 +239,8 @@ Instead of creating objects for all of my characters, I made classes. I realized
 **RESOLUTION**: I moved function declarations higher up
 
 ## References
-Final Fantasy for basic layout
 
+Final Fantasy 1 for basic layout
+Jason for several functions
+https://scottiestech.info/2014/07/01/javascript-fun-looping-with-a-delay/ for IIFE
+https://www.w3schools.com/howto/howto_js_progressbar.asp for basic progress meter
