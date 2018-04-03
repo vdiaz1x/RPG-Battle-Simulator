@@ -87,7 +87,7 @@ const darkATK = [
 // creating attacks for bosses
 const abraxesATK = [
   new Attack('Darkness', 50, 5),
-  new Attack('Gravit Well', 200, 10),
+  new Attack('Gravity Well', 200, 10),
   new Attack('Eruptor', 300, 15),
   new Attack('Blood Bath', 400, 20),
 ];

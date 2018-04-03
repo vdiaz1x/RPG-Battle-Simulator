@@ -77,6 +77,18 @@ $(() => {
   |--------------------------------------------------------------------------
   */
 
+  // creating allies
+  const fire = new Ally('fire', fireATK, 'ally1');
+  const water = new Ally('water', waterATK, 'ally2');
+  const air = new Ally('air', airATK, 'ally3');
+  const earth = new Ally('earth', earthATK, 'ally4');
+  const ice = new Ally('ice', iceATK, 'ally5');
+  const thunder = new Ally('thunder', thunderATK, 'ally6');
+  const wood = new Ally('wood', woodATK, 'ally7');
+  const metal = new Ally('metal', metalATK, 'ally8');
+  const light = new Ally('light', lightATK, 'ally9');
+  const dark = new Ally('dark', darkATK, 'ally10');
+
   // putting allies into list for searching
   const charaList = [fire, water, air, earth, ice, thunder, wood, metal, light, dark];
 
@@ -90,11 +102,6 @@ $(() => {
   const allySpace4 = $('#ally-avatar4 .avatar-img');
   const bossSpace = $('#enemy-avatar');
 
-  // turn counter starts at 1
-  let turnCounter = 1;
-  // adds turn counter to turn display
-  $('#turn-number').text(turnCounter);
-
   imgGen(fire, water, air, earth, abraxes);
 
   // empty list to insert allies chosen
@@ -107,6 +114,9 @@ $(() => {
 
   // flag for turn
   let turnGo = false;
+
+  // turn counter starts at 1
+  let turnCounter = 1;
 
   /*
   |--------------------------------------------------------------------------
@@ -195,6 +205,9 @@ $(() => {
       // hide the chara select and show the battle screen
       $('#select').hide();
       $('#battle').show();
+
+      // adds turn counter to turn display
+      $('#turn-number').text(turnCounter);
     }
   }
 
@@ -386,11 +399,11 @@ $(() => {
     // than having consecutive function calls simultaneously
 
     // function to loop attacks (i is entered as zero)
+    // immediately invoked function expression
     (function atkLoop(i) {
       // defining variable to not use the argument itself
       let n = i;
 
-      // immediately invoked function expression
       const allyMove = setTimeout(() => {
         // calling move function for one move
         move(n);
@@ -424,7 +437,7 @@ $(() => {
         // implied that all allies have zero HP
         if (allyList[0].currentHP === 0) {
           // show battle message message
-          $('message').show();
+          $('#message-box').show();
         }
       }
       // boss deals damage after 10 seconds, after all allies
@@ -438,7 +451,7 @@ $(() => {
         $('#turn-number').text(turnCounter);
 
         // hide battle message
-        $('#message').hide();
+        $('#message-box').hide();
 
         // reset turn metrics
         turnGo = false;
@@ -450,7 +463,8 @@ $(() => {
         // console.log('win');
         clearInterval(checkTurn);
         $('#battle-end').show();
-        $('#message').hide();
+        $('#battle-end-message').text('You Win!');
+        $('#message-box').hide();
       }
       // runs after all allies and boss have attacked
     }, 12000);
@@ -459,14 +473,13 @@ $(() => {
   // function to check whether turn should run
   const checkTurn = () => {
     setInterval(() => {
-      // console.log(turnGo);
-      // if(!turnGo){
-      //   // how to select which character to get moves from
-      //   $('.atk-block').on('click', clickAlly);
+      if (!turnGo) {
+        // how to select which character to get moves from
+        $('.atk-block').on('click', clickAlly);
 
-      //   // how to select which attack to use
-      //   $('.atk-choice').on('click', clickAttack);
-      // }
+        // how to select which attack to use
+        $('.atk-choice').on('click', clickAttack);
+      }
       // if turnGo is true, then run the turn function
       if (turnGo) {
         // calling turn function
@@ -496,6 +509,8 @@ $(() => {
 
       // hide battle message and show end message
       $('#battle-end').show();
+      $('#battle-end-message').text('You Win!');
+      // console.log($('#battle-end-message'));
       $('#message').hide();
 
       return true;
@@ -549,7 +564,7 @@ $(() => {
     turnGo = false;
 
     // sets turn counter to zero
-    turnCounter = 0;
+    turnCounter = 1;
 
     // checkTurn();
 
@@ -593,7 +608,7 @@ $(() => {
 // basic skeleton framing - 4 hr
 // advanced styling - 4.25 hr
 // adding jquery to eslint - 1 hr
-// adding more jquery functionality -24.5 hr
+// adding more jquery functionality -26.5 hr
 // updating readme - .5 hr
 // jquery syntax - 2 hr
-// presentation - .5 hr
+// presentation - 1 hr
