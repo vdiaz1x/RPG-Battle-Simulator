@@ -15,79 +15,79 @@ class Attack {
 
 // creating attacks for allies
 const fireATK = [
-  new Attack('Flame', 50, 25),
-  new Attack('Fireball', 200, 50),
-  new Attack('Meteor', 300, 75),
-  new Attack('Volcano', 400, 100),
+  new Attack('Flame', 20, 10),
+  new Attack('Fireball', 100, 20),
+  new Attack('Meteor', 300, 30),
+  new Attack('Volcano', 400, 40),
 ];
 
 const waterATK = [
-  new Attack('Wave', 50, 25),
-  new Attack('Waterball', 200, 50),
-  new Attack('Tsunami', 300, 75),
-  new Attack('Ocean', 400, 100),
+  new Attack('Wave', 20, 10),
+  new Attack('Waterball', 100, 20),
+  new Attack('Tsunami', 300, 30),
+  new Attack('Ocean', 400, 40),
 ];
 
 const airATK = [
-  new Attack('Gust', 50, 25),
-  new Attack('Airball', 200, 50),
-  new Attack('Tornado', 300, 75),
-  new Attack('Hurricane', 400, 100),
+  new Attack('Gust', 20, 10),
+  new Attack('Airball', 100, 20),
+  new Attack('Tornado', 300, 30),
+  new Attack('Hurricane', 400, 40),
 ];
 
 const earthATK = [
-  new Attack('Rock', 50, 25),
-  new Attack('Earthball', 200, 50),
-  new Attack('Earthquake', 300, 75),
-  new Attack('Fissure', 400, 100),
+  new Attack('Rock', 20, 10),
+  new Attack('Earthball', 100, 20),
+  new Attack('Earthquake', 300, 30),
+  new Attack('Fissure', 400, 40),
 ];
 
 const iceATK = [
-  new Attack('Iceicle', 50, 25),
-  new Attack('Iceball', 200, 50),
-  new Attack('Avalanche', 300, 75),
-  new Attack('Bliizard', 400, 100),
+  new Attack('Icicle', 20, 10),
+  new Attack('Iceball', 100, 20),
+  new Attack('Avalanche', 300, 30),
+  new Attack('Bliizard', 400, 40),
 ];
 
 const thunderATK = [
-  new Attack('Bolt', 50, 25),
-  new Attack('Thunderball', 200, 50),
-  new Attack('Lightning', 300, 75),
-  new Attack('Storm', 400, 100),
+  new Attack('Bolt', 20, 10),
+  new Attack('Thunderball', 100, 20),
+  new Attack('Lightning', 300, 30),
+  new Attack('Storm', 400, 40),
 ];
 
 const woodATK = [
-  new Attack('Leaf', 50, 25),
-  new Attack('Woodball', 200, 50),
-  new Attack('Forest', 300, 75),
-  new Attack('Wormwood', 400, 100),
+  new Attack('Leaf', 20, 10),
+  new Attack('Woodball', 100, 20),
+  new Attack('Forest', 300, 30),
+  new Attack('Wormwood', 400, 40),
 ];
 
 const metalATK = [
-  new Attack('Steel', 50, 25),
-  new Attack('Metalball', 200, 50),
-  new Attack('Magnet', 300, 75),
-  new Attack('Titanium Strike', 400, 100),
+  new Attack('Steel', 20, 10),
+  new Attack('Metalball', 100, 20),
+  new Attack('Magnet', 300, 30),
+  new Attack('Titanium Strike', 400, 40),
 ];
 
 const lightATK = [
-  new Attack('Flash', 50, 25),
-  new Attack('Lightball', 200, 50),
-  new Attack('Burst', 300, 75),
-  new Attack('Nova', 400, 100),
+  new Attack('Flash', 20, 10),
+  new Attack('Lightball', 100, 20),
+  new Attack('Burst', 300, 30),
+  new Attack('Nova', 400, 40),
 ];
 
 const darkATK = [
-  new Attack('Darkness', 50, 25),
-  new Attack('Darkball', 200, 50),
-  new Attack('Extinguish', 300, 75),
-  new Attack('Death', 400, 100),
+  new Attack('Darkness', 20, 10),
+  new Attack('Darkball', 100, 20),
+  new Attack('Extinguish', 300, 30),
+  new Attack('Death', 400, 40),
 ];
 
 // creating attacks for bosses
 const abraxesATK = [
-  new Attack('Darkness', 50, 5),
-  new Attack('Gravity Well', 200, 10),
+  new Attack('Darkness', 20, 5),
+  new Attack('Gravity Well', 300, 1.5),
   new Attack('Eruptor', 300, 15),
   new Attack('Blood Bath', 400, 20),
 ];
@@ -145,18 +145,6 @@ class Ally extends Being {
     return `${this.id} ${this.nameSlot}`;
   }
 }
-
-// creating allies
-const fire = new Ally('fire', fireATK, 'ally1');
-const water = new Ally('water', waterATK, 'ally2');
-const air = new Ally('air', airATK, 'ally3');
-const earth = new Ally('earth', earthATK, 'ally4');
-const ice = new Ally('ice', iceATK, 'ally5');
-const thunder = new Ally('thunder', thunderATK, 'ally6');
-const wood = new Ally('wood', woodATK, 'ally7');
-const metal = new Ally('metal', metalATK, 'ally8');
-const light = new Ally('light', lightATK, 'ally9');
-const dark = new Ally('dark', darkATK, 'ally10');
 
 // extends being into boss
 class Boss extends Being {

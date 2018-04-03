@@ -162,6 +162,16 @@ input, #submit-button{
 	/*placeholder*/
 }
 
+.not-available::before{
+	content:"Not Available";
+	display:flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	background-color: rgba(0,0,0,.7);
+	padding:20px 0;
+}
+
 .selected::after{
 	content:"Selected";
 	width: 100%;
@@ -169,7 +179,7 @@ input, #submit-button{
 	justify-content: center;
 	align-items: center;
 	height:100%;
-	background-color: rgba(0,0,0,7);
+	background-color: rgba(0,0,0,.7);
 	z-index: 100;
 }
 
@@ -465,7 +475,7 @@ input, #submit-button{
 }
 
 #enemy-avatar{
-	width:90%;
+	width:100%;
 	/*sample*/
 	/*background:url("https://vignette.wikia.nocookie.net/vsbattles/images/d/dd/Demon-ffvi-ios.png/revision/latest?cb=20160816201328");*/
 }
@@ -484,7 +494,7 @@ input, #submit-button{
 */
 #avatar{
 	width:65%;
-	height:100%;
+	height:80%;
 	/*display: inline-flex;*/
 	display:flex;
 	justify-content: space-around;
@@ -494,7 +504,7 @@ input, #submit-button{
 
 .ally-avatar{
 	width:45%;
-	height:45%;
+	height:25%;
 }
 
 .avatar-img{
@@ -538,7 +548,7 @@ input, #submit-button{
 	background-color:rgba(0,0,0,1);
 	display:none;
 	text-align:center;
-	font-size: 20
+	font-size: 20px;
 }
 
 #panel-head, #attack-head{

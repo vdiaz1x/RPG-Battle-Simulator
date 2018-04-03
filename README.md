@@ -146,18 +146,18 @@ After a win or loss, you will have the option to go back and select a new enemy 
 
 | Component | Priority | Estimated Time | Time Invetsted | Actual Time |
 | --- | :---: |  :---: | :---: | :---: |
-| Game Logic | H | 20hrs| 00hrs | 00hrs |
-| (Progress) | H | 3hrs| 00hrs | 00hrs |
-| (Turn Order) | H | 3hrs| 00hrs | 00hrs |
-| (Classes) | H | 3hrs| 00hrs | 00hrs |
-| (On-screen) | H | 4hrs| 00hrs | 00hrs |
-| (Damage) | H | 4hrs| 00hrs | 00hrs |
-| (Misc) | H | 3hrs| 00hrs | 00hrs |
-| Win Condition | H | 4hrs| 00hrs | 00hrs |
-| Basic Game Styling | M | 6hrs| 00hrs | 00hrs |
-| Landing Page | M | 00hrs| 2hrs | 00hrs |
-| Restart | M | 00hrs| 00hrs | 2hrs |
-| Total |  | 34hrs| 00hrs | 00hrs |
+| Game Logic | H | 20hrs| 00hrs | 24hrs |
+| (Progress) | H | 3hrs| 00hrs | 4hrs |
+| (Turn Order) | H | 3hrs| 00hrs | 10hrs |
+| (Classes) | H | 3hrs| 00hrs | 2hrs |
+| (On-screen) | H | 4hrs| 00hrs | 4hrs |
+| (Damage) | H | 4hrs| 00hrs | 2hrs |
+| (Misc) | H | 3hrs| 00hrs | 4hrs |
+| Win Condition | H | 4hrs| 00hrs | 4hrs |
+| Basic Game Styling | M | 6hrs| 00hrs | 6hrs |
+| Landing Page | M | 00hrs| 2hrs | 2hrs |
+| Restart | M | 00hrs| 00hrs | 4hrs |
+| Total |  | 34hrs| 00hrs | 40hrs |
 | Advanced Game Styling | L | 5hrs| 00hrs | 00hrs |
 | PostMVP | L | 10hrs| 00hrs | 00hrs |
 | Super Total |  | 50hrs| 00hrs | 00hrs |
@@ -165,11 +165,10 @@ After a win or loss, you will have the option to go back and select a new enemy 
 My time estimates were way off. Also, I underestimated the scope and difficulty of this project.
 
 ## Helper Functions
-Helper functions should be generic enought that they can be reused in other applications. Use this section to document all helper functions that fall into this category.
 
 | Function | Description | 
 | --- | :---: |  
-| Capitalize | This will capitalize the first letter in a string | 
+| Progress | Tracks progress of a quantity | 
 
 ## Additional Libraries
  JQuery - for DOM manipulation and other useful functions
@@ -227,7 +226,7 @@ Unlike the high-low game, I could not pause the game via user input- the attacks
 Instead of creating objects for all of my characters, I made classes. I realized that the attacks also warranted their own class as well. However, whenever I had to change my code to make it more extendable, I had to edit the class definition. Using classes did make it easier to do any editing on my characters, though.
 
 #### SAMPLE.....
-**ERROR**: eslint regenerator-loop                             
+**ERROR**: eslint regenerator-runtime, prefer iteration to loops                             
 **RESOLUTION**: Instead of using for...of loops for arrays, I used forEach
 
 **ERROR**: eslint object deconstructing                     
@@ -238,3 +237,4 @@ Instead of creating objects for all of my characters, I made classes. I realized
 
 ## References
 Final Fantasy for basic layout
+

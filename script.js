@@ -435,9 +435,11 @@ $(() => {
         bossDamage(abraxes, allyList);
         // checking if the first ally has zero current HP
         // implied that all allies have zero HP
-        if (allyList[0].currentHP === 0) {
+        if (allyList[0].currentHP <= 0) {
+          console.log(allyList[0].currentHP);
           // show battle message message
-          $('#message-box').show();
+          $('#battle-end').show();
+          $('#battle-end-message').text('You Lose');
         }
       }
       // boss deals damage after 10 seconds, after all allies
@@ -447,15 +449,15 @@ $(() => {
     const turnRestart = setTimeout(() => {
       // if the boss has > 0 current HP, continue fighting
       if (abraxes.currentHP > 0) {
-        // put the turn counter on screen
-        $('#turn-number').text(turnCounter);
-
         // hide battle message
         $('#message-box').hide();
 
         // reset turn metrics
         turnGo = false;
         turnCounter += 1;
+        
+        // put the turn counter on screen
+        $('#turn-number').text(turnCounter);
         atkList = [];
         attacks = [];
         // if ally is dead
@@ -608,7 +610,7 @@ $(() => {
 // basic skeleton framing - 4 hr
 // advanced styling - 4.25 hr
 // adding jquery to eslint - 1 hr
-// adding more jquery functionality -26.5 hr
+// adding more jquery functionality -27.5 hr
 // updating readme - .5 hr
 // jquery syntax - 2 hr
 // presentation - 1 hr
