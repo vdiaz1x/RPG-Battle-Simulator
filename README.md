@@ -21,7 +21,7 @@ A battle sequence in the style of old school RPGs (Final Fantasy/turn-based) wit
 | | Stylying | |
 | | PostMVP | |
 |Day 7: Mon| Finish Bugs| Yes |
-|Day 8: Tues| Project Presentations | |
+|Day 8: Tues| Project Presentations | Yes |
 
 
 ## Project Description
@@ -38,8 +38,9 @@ This project is based off of a typical RPG boss battle. The idea is to model it 
 
 [Part 3](https://photos.app.goo.gl/FULzuRwy5mtVyA0o2)
 
-### Wireframes
+## Presentation
 
+[Link to PDF](https://drive.google.com/open?id=1caY5fqkGW7fh2OzUsxrJUvpTAVshe3kh94AhaSd3fNg)
 
 ## Priority Matrix
 
